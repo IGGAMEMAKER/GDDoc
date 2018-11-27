@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -188,8 +188,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 244450582}
   m_HandleRect: {fileID: 244450581}
   m_Direction: 2
-  m_Value: 0.5030143
-  m_Size: 0.003995451
+  m_Value: 0.99999994
+  m_Size: 0.040104575
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -260,8 +260,8 @@ RectTransform:
   m_Father: {fileID: 810906775}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5010046}
-  m_AnchorMax: {x: 1, y: 0.50500005}
+  m_AnchorMin: {x: 0, y: 0.95989543}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -616,12 +616,12 @@ Prefab:
     - target: {fileID: 224617119055428016, guid: a63dab3870edb0c40885f601a272dd97,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224617119055428016, guid: a63dab3870edb0c40885f601a272dd97,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 583
+      value: -57
       objectReference: {fileID: 0}
     - target: {fileID: 224617119055428016, guid: a63dab3870edb0c40885f601a272dd97,
         type: 2}
@@ -641,7 +641,7 @@ Prefab:
     - target: {fileID: 224617119055428016, guid: a63dab3870edb0c40885f601a272dd97,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224617119055428016, guid: a63dab3870edb0c40885f601a272dd97,
         type: 2}
@@ -651,7 +651,7 @@ Prefab:
     - target: {fileID: 224617119055428016, guid: a63dab3870edb0c40885f601a272dd97,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224617119055428016, guid: a63dab3870edb0c40885f601a272dd97,
         type: 2}
@@ -737,16 +737,16 @@ MonoBehaviour:
   m_Content: {fileID: 1871028079}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 10
   m_Viewport: {fileID: 0}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 235096066}
   m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 1
   m_HorizontalScrollbarSpacing: 0
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
@@ -867,6 +867,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -409.21024}
-  m_SizeDelta: {x: 800, y: 136300}
+  m_AnchoredPosition: {x: 0, y: -6517.2095}
+  m_SizeDelta: {x: 800, y: 13579}
   m_Pivot: {x: 0.5, y: 0.5}
