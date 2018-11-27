@@ -88,7 +88,7 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
         for (var i = 0; i < count; i++)
         {
             int width = 100;
-            float X = (i - count / 2f + 0.5f) * width;
+            float X = (i - (count - 1) / 2f) * width; // -1 because count is always > 1
 
             childs[i].transform.localPosition = new Vector3(X, -100, 0);
         }
