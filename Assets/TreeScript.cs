@@ -33,6 +33,7 @@ public class TreeScript : MonoBehaviour {
     {
         Debug.Log("OnNodeSelected");
 
+        // Disable all nodes. Script will select proper node himself
         for (var i = 0; i < Nodes.Count; i++)
             Nodes[i].GetComponent<NodeScript>().Deselect();
     }

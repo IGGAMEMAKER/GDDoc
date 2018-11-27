@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
     TNode node;
     GameObject nodePrefab;
     bool selected;
+
+    List<GameObject> childs;
 
     TreeScript TreeScript;
 
@@ -25,7 +28,7 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
 
     void Render()
     {
-        GetComponentInChildren<Text>().text = node.Text;
+        GetComponentInChildren<Text>().text = node.Id.ToString();
         ToggleColor();
     }
 
@@ -46,6 +49,7 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
     // Use this for initialization
     void Start () {
         TreeScript = GameObject.Find("Tree").GetComponent<TreeScript>();
+        childs = new List<GameObject>();
     }
 
     void ToggleColor()
@@ -70,17 +74,34 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
         GameObject obj = Instantiate(nodePrefab, transform);
 
         TreeScript.AddNode(obj);
+        childs.Add(obj);
 
-        int X = node.Childs.Count * 100;
-        int Y = -100;
-
-        obj.transform.Translate(new Vector3(X, Y, 0), Space.Self);
+        obj.transform.Translate(new Vector3(0, -100, 0), Space.Self);
         obj.GetComponent<NodeScript>().SetData(child, tree, nodePrefab);
+
+        ResizeChilds();
+    }
+
+    private void ResizeChilds()
+    {
+        int count = childs.Count;
+        for (var i = 0; i < count; i++)
+        {
+            int width = 100;
+            float X = (i - count / 2f) * width + width / 2; // (count - i) * width;
+
+            //childs[i].transform.SetParent(transform); // (new Vector3(X, 0, 0), Space.Self);
+            //childs[i].transform.Translate(new Vector3(X, 0, 0), Space.Self);
+
+            childs[i].transform.localPosition = new Vector3(X, -100, 0);
+        }
     }
 
     void Update()
     {
         CheckKeyBoard();
+
+        ResizeChilds();
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
