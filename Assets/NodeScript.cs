@@ -10,38 +10,27 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
     TNode tree;
     TNode node;
     GameObject nodePrefab;
+    GameObject parent;
     bool selected;
 
     List<GameObject> childs;
 
     TreeScript TreeScript;
 
-    internal void SetData(TNode node, TNode tree, GameObject prefab)
+    internal void SetData(TNode node, TNode tree, GameObject parent, GameObject prefab)
     {
         this.node = node;
         this.tree = tree;
+
+        this.parent = parent;
         this.nodePrefab = prefab;
 
-        Render();
+        Redraw();
     }
 
-    void Render()
+    void Redraw()
     {
         GetComponentInChildren<Text>().text = node.Id.ToString();
-        ToggleColor();
-    }
-
-    internal void Select()
-    {
-        selected = true;
-
-        ToggleColor();
-    }
-
-    internal void Deselect()
-    {
-        selected = false;
-
         ToggleColor();
     }
 
@@ -56,6 +45,20 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
         GetComponentInChildren<Text>().color = selected ? Color.white : Color.black;
     }
 
+    internal void Select()
+    {
+        selected = true;
+
+        Redraw();
+    }
+
+    internal void Deselect()
+    {
+        selected = false;
+
+        Redraw();
+    }
+
     void CheckKeyBoard()
     {
         if (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.KeypadEnter))
@@ -63,16 +66,33 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
             SelectMiddleChild();
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            SelectParentNode();
+    }
+
+    private void SelectParentNode()
+    {
+        Debug.Log("SelectParentNode: " + node.Id);
+
+        if (parent != null)
+        {
+            Deselect();
+            parent.GetComponent<NodeScript>().Select();
+        }
     }
 
     private void SelectMiddleChild()
     {
+        Debug.Log("SelectMiddleChild: " + node.Id);
+
         if (childs.Count > 0)
         {
             Deselect();
             childs[childs.Count / 2].GetComponent<NodeScript>().Select();
         }
     }
+    
 
     private void AddNode()
     {
@@ -85,7 +105,7 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
         childs.Add(obj);
 
         obj.transform.Translate(new Vector3(0, -100, 0), Space.Self);
-        obj.GetComponent<NodeScript>().SetData(child, tree, nodePrefab);
+        obj.GetComponent<NodeScript>().SetData(child, tree, gameObject, nodePrefab);
 
         ResizeChilds();
     }
@@ -113,9 +133,7 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         TreeScript.OnNodeSelected(gameObject);
-        //GameObject.Find("Tree").GetComponent<TreeScript>().OnNodeSelected(gameObject, node);
-        selected = true; // eventData.hovered.Contains(gameObject);
 
-        ToggleColor();
+        Select();
     }
 }

@@ -19,7 +19,7 @@ public class TreeScript : MonoBehaviour {
         tree = new TNode(nodes++);
 
         Nodes.Add(GameObject.Find("Node"));
-        Nodes[0].GetComponent<NodeScript>().SetData(tree, tree, TreeNode);
+        Nodes[0].GetComponent<NodeScript>().SetData(tree, tree, null, TreeNode);
         Nodes[0].GetComponent<NodeScript>().Select();
 
     }
