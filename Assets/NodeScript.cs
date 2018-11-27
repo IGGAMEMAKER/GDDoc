@@ -22,7 +22,6 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
         this.tree = tree;
         this.nodePrefab = prefab;
 
-        //selected = true;
         Render();
     }
 
@@ -60,9 +59,18 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
     void CheckKeyBoard()
     {
         if (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.KeypadEnter))
+            AddNode();
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+            SelectMiddleChild();
+    }
+
+    private void SelectMiddleChild()
+    {
+        if (childs.Count > 0)
         {
-            if (selected)
-                AddNode();
+            Deselect();
+            childs[childs.Count / 2].GetComponent<NodeScript>().Select();
         }
     }
 
@@ -96,7 +104,8 @@ public class NodeScript : MonoBehaviour, IPointerClickHandler
 
     void Update()
     {
-        CheckKeyBoard();
+        if (selected)
+            CheckKeyBoard();
 
         ResizeChilds();
     }
