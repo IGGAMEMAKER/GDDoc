@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,39 +7,38 @@ public class TreeScript : MonoBehaviour {
     public GameObject TreeNode;
 
     public TNode tree;
+    GameObject Root;
 
-    GameObject Chosen;
-    TNode ChosenNode;
+    List<GameObject> Nodes;
 
     int nodes = 0;
 
     // Use this for initialization
     void Start () {
+        Nodes = new List<GameObject>();
         tree = new TNode(nodes++);
-        ChosenNode = tree;
 
-        Chosen = Instantiate(TreeNode, transform);
-	}
+        Nodes.Add(GameObject.Find("Node"));
+        Nodes[0].GetComponent<NodeScript>().SetData(tree, tree, TreeNode);
+        Nodes[0].GetComponent<NodeScript>().Select();
 
-    void AddNode()
-    {
-        ChosenNode.AddChild(nodes++);
-
-        Chosen = Instantiate(TreeNode, Chosen.transform);
-        Chosen.transform.Translate(new Vector3(0, -50), Space.Self);
     }
 
-    void CheckKeyBoard()
+    public int GetNewId ()
     {
-        if (Input.GetKeyUp(KeyCode.Return))
-        {
-            AddNode();
-        }
+        return nodes++;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        CheckKeyBoard();
 
+    public void OnNodeSelected(GameObject obj)
+    {
+        Debug.Log("OnNodeSelected");
+
+        for (var i = 0; i < Nodes.Count; i++)
+            Nodes[i].GetComponent<NodeScript>().Deselect();
+    }
+
+    internal void AddNode(GameObject obj)
+    {
+        Nodes.Add(obj);
     }
 }

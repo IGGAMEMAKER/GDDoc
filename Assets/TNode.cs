@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+[System.Serializable]
 public class TNode
 {
-    List<TNode> childs;
+    private List<TNode> childs;
     private readonly int id;
 
     public string Text;
@@ -13,6 +15,24 @@ public class TNode
         childs = new List<TNode>();
         Text = "Node";
         this.id = id;
+    }
+
+    public TNode GetNode(int id)
+    {
+        if (Id == id)
+            return this;
+
+        for (var i = 0; i < childs.Count; i++)
+        {
+            TNode node = childs[i].GetNode(id);
+
+            if (node == null)
+                continue;
+            else
+                return node;
+        }
+
+        return null;
     }
 
     public List<TNode> Childs
@@ -28,8 +48,11 @@ public class TNode
         }
     }
 
-    public void AddChild(int id)
+    public TNode AddChild(int id)
     {
-        childs.Add(new TNode(id));
+        TNode child = new TNode(id);
+        childs.Add(child);
+
+        return child;
     }
 }
