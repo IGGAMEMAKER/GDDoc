@@ -11,7 +11,7 @@ public class GoalListView : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("Start");
+
 	}
 
     public void Initialize(List<Goal> goals)
@@ -43,8 +43,8 @@ public class GoalListView : MonoBehaviour {
     void SpawnGoal(Goal goal)
     {
         GameObject obj = Instantiate(GoalPrefab, transform, false);
-        Views.Add(obj);
-
         obj.GetComponent<GoalView>().SetData(goal);
+
+        Views.Add(obj);
     }
 }

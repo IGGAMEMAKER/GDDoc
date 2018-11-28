@@ -22,8 +22,6 @@ public class GoalListManager : MonoBehaviour {
 
     public void AddGoal()
     {
-        Goal goal = new Goal();
-
-        listView.AddGoal(goal);
+        listView.AddGoal(new Goal());
     }
 }
