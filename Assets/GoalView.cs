@@ -10,17 +10,16 @@ public class GoalView : DoubleClickHandler
     bool isInputFormShown = false;
     Goal Goal;
 
-    GameObject Label;
-    GameObject Input;
+    public GameObject Label;
+    public GameObject Input;
 
 	// Use this for initialization
 	void Start () {
-        Label = transform.Find("GoalLabel").gameObject;
-        Input = transform.Find("Edit").gameObject;
+        Goal = new Goal();
 
         Redraw();
 	}
-
+    
     void SetData(Goal goal)
     {
         Goal = goal;
@@ -30,36 +29,45 @@ public class GoalView : DoubleClickHandler
 
     void Redraw()
     {
-        if (Goal != null)
+        //if (Goal != null)
             RedrawName();
     }
 
-    public void OnEditName(string obj)
+    public void OnEditName(string name)
     {
         Debug.Log("OnEditName");
+
+        Goal.Name = name;
+        isInputFormShown = false;
+
+        Redraw();
     }
 
     void RenderInput()
     {
-        Input.GetComponent<Renderer>().enabled = true;
+        InputField inputField = Input.GetComponent<InputField>();
+        Input.SetActive(true);
+
+        inputField.text = Goal.Name;
+        inputField.Select();
+        inputField.ActivateInputField();
     }
 
     void HideInput()
     {
-        Input.GetComponent<Renderer>().enabled = false;
+        Input.SetActive(false);
     }
 
     void RenderLabel()
     {
-        Label.GetComponent<Renderer>().enabled = true;
+        Label.SetActive(true);
         Label.GetComponent<Text>().text = Goal.Name;
     }
 
     void HideLabel()
     {
-        Label.GetComponent<Renderer>().enabled = false;
+        Label.SetActive(false);
     }
-
 
     private void RedrawName()
     {
@@ -67,7 +75,8 @@ public class GoalView : DoubleClickHandler
         {
             RenderInput();
             HideLabel();
-        } else
+        }
+        else
         {
             RenderLabel();
             HideInput();
@@ -81,8 +90,9 @@ public class GoalView : DoubleClickHandler
         if (isDoubleClicked)
         {
             Debug.Log("Is Double Clicked GoalView");
+
             isInputFormShown = true;
-            //Redraw();
+            Redraw();
         }
     }
 }
