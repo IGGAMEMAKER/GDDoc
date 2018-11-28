@@ -18,7 +18,7 @@ public class GoalView : DoubleClickHandler
         Goal = new Goal();
 
         Redraw();
-	}
+    }
     
     void SetData(Goal goal)
     {
