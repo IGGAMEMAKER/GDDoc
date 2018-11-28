@@ -16,12 +16,11 @@ public class GoalView : DoubleClickHandler
 	// Use this for initialization
 	void Start () {
         Goal = new Goal();
-
-        Redraw();
     }
     
-    void SetData(Goal goal)
+    public void SetData(Goal goal)
     {
+        Debug.LogFormat("SetData in GoalView: " + goal.Name);
         Goal = goal;
 
         Redraw();

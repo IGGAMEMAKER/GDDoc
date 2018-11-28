@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,23 +11,40 @@ public class GoalListView : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Views = new List<GameObject>();
+        Debug.Log("Start");
 	}
 
     public void Initialize(List<Goal> goals)
     {
+        Views = new List<GameObject>();
+
         Goals = goals;
 
-        for (var i = 0; i < goals.Count; i++)
-        {
-            GameObject obj = Instantiate(GoalPrefab, transform, false);
-            obj.transform.localPosition = new Vector3(-i * 100, 0, 0);
-            Views.Add(obj);
-        }
+        for (var i = 0; i < Goals.Count; i++)
+            SpawnGoal(goals[i]);
+
+        UpdatePositions();
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    internal void AddGoal(Goal goal)
+    {
+        Goals.Add(goal);
+        SpawnGoal(goal);
+
+        UpdatePositions();
+    }
+
+    void UpdatePositions()
+    {
+        for (var i = 0; i < Views.Count; i++)
+            Views[i].transform.localPosition = new Vector3(i * 225, 0, 0);
+    }
+
+    void SpawnGoal(Goal goal)
+    {
+        GameObject obj = Instantiate(GoalPrefab, transform, false);
+        Views.Add(obj);
+
+        obj.GetComponent<GoalView>().SetData(goal);
+    }
 }

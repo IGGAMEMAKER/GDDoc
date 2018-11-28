@@ -17,16 +17,13 @@ public class GoalListManager : MonoBehaviour {
 
         listView = GoalListView.GetComponent<GoalListView>();
 
-        Render();
+        listView.Initialize(Goals);
     }
 
     public void AddGoal()
     {
+        Goal goal = new Goal();
 
-    }
-
-    void Render()
-    {
-        listView.Initialize(Goals);
+        listView.AddGoal(goal);
     }
 }
