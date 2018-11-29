@@ -7,21 +7,18 @@ public class GoalListManager : MonoBehaviour {
 
     List<Goal> Goals;
 
-    public GameObject GoalListView;
-    GoalListView listView;
+    public GoalListView GoalListView;
 
 	// Use this for initialization
 	void Start () {
         Goals = new List<Goal>();
         Goals.Add(new Goal("Strong Goal", "Descr"));
 
-        listView = GoalListView.GetComponent<GoalListView>();
-
-        listView.Initialize(Goals);
+        GoalListView.Initialize(Goals);
     }
 
     public void AddGoal()
     {
-        listView.AddGoal(new Goal());
+        GoalListView.AddGoal(new Goal());
     }
 }

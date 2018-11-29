@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 114604047694435736}
   - component: {fileID: 114638002674168458}
   - component: {fileID: 114781085293299776}
+  - component: {fileID: 222257276240185064}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -235,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aee230c30cf07f41a62d50413a80d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalListView: {fileID: 1945233892058796}
+  GoalListView: {fileID: 114604047694435736}
 --- !u!114 &114590898803263988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -440,6 +441,13 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914363156956458}
+  m_CullTransparentMesh: 0
+--- !u!222 &222257276240185064
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1945233892058796}
   m_CullTransparentMesh: 0
 --- !u!222 &222257381195273148
 CanvasRenderer:
