@@ -237,6 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GoalListView: {fileID: 114604047694435736}
+  scrollRect: {fileID: 114958731878784634}
+  Label: {fileID: 114913117967616174}
 --- !u!114 &114590898803263988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -376,7 +378,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Business Goals
+  m_Text: Business
 --- !u!114 &114958731878784634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -606,6 +608,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 55, y: 4}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 110.92, y: 4}
+  m_SizeDelta: {x: 271.85, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}

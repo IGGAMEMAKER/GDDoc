@@ -214,6 +214,21 @@ Prefab:
       propertyPath: m_Name
       value: BusinessListView
       objectReference: {fileID: 0}
+    - target: {fileID: 224291712775919946, guid: 9144b055996f8bd4c8ab16b1211ca9a0,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224291712775919946, guid: 9144b055996f8bd4c8ab16b1211ca9a0,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224291712775919946, guid: 9144b055996f8bd4c8ab16b1211ca9a0,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9144b055996f8bd4c8ab16b1211ca9a0, type: 2}
   m_IsPrefabAsset: 0
