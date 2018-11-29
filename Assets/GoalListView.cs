@@ -37,7 +37,7 @@ public class GoalListView : MonoBehaviour {
     void UpdatePositions()
     {
         for (var i = 0; i < Views.Count; i++)
-            Views[i].transform.localPosition = new Vector3(i * 225, 0, 0);
+            Views[i].transform.localPosition = new Vector3(i * 275, 0, 0);
     }
 
     void SpawnGoal(Goal goal)
