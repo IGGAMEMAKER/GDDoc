@@ -17,22 +17,12 @@ public class GoalListView : MonoBehaviour {
 
         for (var i = 0; i < Goals.Count; i++)
             SpawnGoal(goals[i]);
-
-        UpdatePositions();
     }
 
     internal void AddGoal(Goal goal)
     {
         Goals.Add(goal);
         SpawnGoal(goal);
-
-        UpdatePositions();
-    }
-
-    void UpdatePositions()
-    {
-        for (var i = 0; i < Views.Count; i++)
-            Views[i].transform.localPosition = new Vector3((Views.Count - i) * 225, 0, 0);
     }
 
     void SpawnGoal(Goal goal)
