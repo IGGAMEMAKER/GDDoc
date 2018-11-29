@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GoalView : DoubleClickHandler
+public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler, IDeselectHandler
 {
     bool isInputFormShown = false;
     Goal Goal;
@@ -13,9 +13,13 @@ public class GoalView : DoubleClickHandler
     public GameObject Label;
     public GameObject Input;
 
+    Selectable Selectable;
+
 	// Use this for initialization
 	void Start () {
         Goal = new Goal();
+
+        Selectable = GetComponent<Selectable>();
     }
     
     public void SetData(Goal goal)
@@ -31,6 +35,8 @@ public class GoalView : DoubleClickHandler
         //if (Goal != null)
             RedrawName();
     }
+
+
 
     public void OnEditName(string name)
     {
@@ -93,5 +99,15 @@ public class GoalView : DoubleClickHandler
             isInputFormShown = true;
             Redraw();
         }
+    }
+
+    void ISelectHandler.OnSelect(BaseEventData eventData)
+    {
+        Debug.LogFormat("Component {0} is selected", Goal.Name);
+    }
+
+    void IDeselectHandler.OnDeselect(BaseEventData eventData)
+    {
+        Debug.Log(this.gameObject.name + " was Deselected");
     }
 }
