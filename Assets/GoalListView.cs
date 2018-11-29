@@ -9,11 +9,6 @@ public class GoalListView : MonoBehaviour {
 
     public GameObject GoalPrefab;
 
-	// Use this for initialization
-	void Start () {
-
-	}
-
     public void Initialize(List<Goal> goals)
     {
         Views = new List<GameObject>();
@@ -37,13 +32,14 @@ public class GoalListView : MonoBehaviour {
     void UpdatePositions()
     {
         for (var i = 0; i < Views.Count; i++)
-            Views[i].transform.localPosition = new Vector3(i * 225, 0, 0);
+            Views[i].transform.localPosition = new Vector3((Views.Count - i) * 225, 0, 0);
     }
 
     void SpawnGoal(Goal goal)
     {
         GameObject obj = Instantiate(GoalPrefab, transform, false);
         obj.GetComponent<GoalView>().SetData(goal);
+        obj.transform.SetSiblingIndex(0);
 
         Views.Add(obj);
     }
