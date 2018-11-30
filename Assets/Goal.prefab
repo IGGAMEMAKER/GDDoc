@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDoubleClicked: 0
   Label: {fileID: 114932978419290992}
-  InputField: {fileID: 1429024140821878}
+  inputField: {fileID: 114322087542907576}
   BuildLabel: {fileID: 114286263929024856}
   RequiredLabel: {fileID: 114293832230308382}
 --- !u!114 &114171793361504964

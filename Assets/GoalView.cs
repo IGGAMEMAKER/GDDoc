@@ -13,7 +13,7 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
     bool isSelected;
 
     public Text Label;
-    public GameObject InputField;
+    public InputField inputField;
 
     public Text BuildLabel;
     public Text RequiredLabel;
@@ -92,17 +92,16 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
 
     void RenderInput()
     {
-        InputField.SetActive(true);
-
-        InputField inputField = InputField.GetComponent<InputField>();
         inputField.text = Goal.Name;
         inputField.Select();
         inputField.ActivateInputField();
+
+        inputField.gameObject.SetActive(true);
     }
 
     void HideInput()
     {
-        InputField.SetActive(false);
+        inputField.gameObject.SetActive(false);
     }
 
     void UpdateTitleFontStyle()
@@ -115,12 +114,17 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
         UpdateTitleFontStyle();
 
         Label.text = Goal.Name;
-        Label.enabled = !isInputFormShown;
 
         if (isInputFormShown)
+        {
             RenderInput();
+            Label.enabled = false;
+        }
         else
+        {
             HideInput();
+            Label.enabled = true;
+        }
     }
 
     void UpdateRequiredIcon()
