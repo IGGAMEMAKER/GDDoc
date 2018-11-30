@@ -29,7 +29,46 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
 
         Selectable = GetComponent<Selectable>();
     }
-    
+
+    void Update()
+    {
+        if (isSelected)
+            CheckKeys();
+    }
+
+    public override void OnPointerDown(PointerEventData data)
+    {
+        base.OnPointerDown(data);
+
+        if (isDoubleClicked)
+        {
+            isInputFormShown = true;
+            Redraw();
+        }
+    }
+
+    void ISelectHandler.OnSelect(BaseEventData eventData)
+    {
+        isSelected = true;
+    }
+
+    void IDeselectHandler.OnDeselect(BaseEventData eventData)
+    {
+        isSelected = false;
+    }
+
+    void CheckKeys()
+    {
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            Goal.ToggleRequired();
+
+            UpdateRequiredIcon();
+
+            UpdateTitleFontStyle();
+        }
+    }
+
     public void SetData(Goal goal)
     {
         Goal = goal;
@@ -71,7 +110,7 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
         Label.fontStyle = Goal.Required ? FontStyle.Bold : FontStyle.Normal;
     }
 
-    private void RedrawName()
+    void RedrawName()
     {
         UpdateTitleFontStyle();
 
@@ -84,49 +123,12 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
             HideInput();
     }
 
-    public override void OnPointerDown(PointerEventData data)
+    void UpdateRequiredIcon()
     {
-        base.OnPointerDown(data);
-
-        if (isDoubleClicked)
-        {
-            isInputFormShown = true;
-            Redraw();
-        }
-    }
-
-    void ISelectHandler.OnSelect(BaseEventData eventData)
-    {
-        isSelected = true;
-    }
-
-    void IDeselectHandler.OnDeselect(BaseEventData eventData)
-    {
-        isSelected = false;
-    }
-
-    void Update()
-    {
-        if (isSelected)
-            CheckKeys();
-    }
-
-    private void CheckKeys()
-    {
-        if (Input.GetKeyUp(KeyCode.R))
-            ToggleIsRequired();
-    }
-
-    private void ToggleIsRequired()
-    {
-        Goal.ToggleRequired();
-
         float scale = 1.5f;
 
         RequiredLabel.color = Goal.Required ? Active : Inactive;
         RequiredLabel.fontStyle = Goal.Required ? FontStyle.Bold : FontStyle.Normal;
         RequiredLabel.fontSize = Goal.Required ? (int)(RequiredLabel.fontSize * scale) : (int)(RequiredLabel.fontSize / scale);
-
-        UpdateTitleFontStyle();
     }
 }
