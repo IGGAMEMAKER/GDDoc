@@ -5,10 +5,18 @@ public class Goal
     public string Name;
     public string Description;
 
+    public bool Required;
+    //public bool MatchesCurrentRelease;
+
     public Goal()
     {
         Name = "Unnamed Goal";
         Description = "Needs description";
+    }
+
+    public void ToggleRequired()
+    {
+        Required = !Required;
     }
 
     public Goal(string Name, string Description)

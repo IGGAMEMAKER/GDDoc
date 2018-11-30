@@ -10,10 +10,18 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
     bool isInputFormShown = false;
     Goal Goal;
 
-    public GameObject Label;
-    public GameObject Input;
+    bool isSelected;
+
+    public Text Label;
+    public GameObject InputField;
+
+    public Text BuildLabel;
+    public Text RequiredLabel;
 
     Selectable Selectable;
+
+    Color Active = Color.white;
+    Color Inactive = Color.black;
 
 	// Use this for initialization
 	void Start () {
@@ -50,8 +58,8 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
 
     void RenderInput()
     {
-        InputField inputField = Input.GetComponent<InputField>();
-        Input.SetActive(true);
+        InputField inputField = InputField.GetComponent<InputField>();
+        InputField.SetActive(true);
 
         inputField.text = Goal.Name;
         inputField.Select();
@@ -60,32 +68,18 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
 
     void HideInput()
     {
-        Input.SetActive(false);
-    }
-
-    void RenderLabel()
-    {
-        Label.SetActive(true);
-        Label.GetComponent<Text>().text = Goal.Name;
-    }
-
-    void HideLabel()
-    {
-        Label.SetActive(false);
+        InputField.SetActive(false);
     }
 
     private void RedrawName()
     {
+        Label.text = Goal.Name;
+        Label.enabled = !isInputFormShown;
+
         if (isInputFormShown)
-        {
             RenderInput();
-            HideLabel();
-        }
         else
-        {
-            RenderLabel();
             HideInput();
-        }
     }
 
     public override void OnPointerDown(PointerEventData data)
@@ -103,11 +97,46 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
 
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
+        isSelected = true;
         Debug.LogFormat("Component {0} is selected", Goal.Name);
     }
 
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
+        isSelected = false;
         Debug.Log(this.gameObject.name + " was Deselected");
+    }
+
+    void Update()
+    {
+        if (isSelected)
+            CheckKeys();
+    }
+
+    private void CheckKeys()
+    {
+        if (Input.GetKeyUp(KeyCode.B))
+            ToggleIsInBuild();
+
+        if (Input.GetKeyUp(KeyCode.R))
+            ToggleIsRequired();
+    }
+
+    private void ToggleIsRequired()
+    {
+        Goal.ToggleRequired();
+
+        float scale = 1.5f;
+
+        RequiredLabel.color = Goal.Required ? Active : Inactive;
+        RequiredLabel.fontStyle = Goal.Required ? FontStyle.Bold : FontStyle.Normal;
+        RequiredLabel.fontSize = Goal.Required ? (int)(RequiredLabel.fontSize * scale) : (int)(RequiredLabel.fontSize / scale);
+
+        RequiredLabel.enabled = Goal.Required;
+    }
+
+    private void ToggleIsInBuild()
+    {
+        //throw new NotImplementedException();
     }
 }
