@@ -58,9 +58,9 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
 
     void RenderInput()
     {
-        InputField inputField = InputField.GetComponent<InputField>();
         InputField.SetActive(true);
 
+        InputField inputField = InputField.GetComponent<InputField>();
         inputField.text = Goal.Name;
         inputField.Select();
         inputField.ActivateInputField();
@@ -78,9 +78,10 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
 
     private void RedrawName()
     {
+        UpdateTitleFontStyle();
+
         Label.text = Goal.Name;
         Label.enabled = !isInputFormShown;
-        UpdateTitleFontStyle();
 
         if (isInputFormShown)
             RenderInput();
@@ -94,8 +95,6 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
 
         if (isDoubleClicked)
         {
-            Debug.Log("Is Double Clicked GoalView");
-
             isInputFormShown = true;
             Redraw();
         }
@@ -134,8 +133,6 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
         RequiredLabel.color = Goal.Required ? Active : Inactive;
         RequiredLabel.fontStyle = Goal.Required ? FontStyle.Bold : FontStyle.Normal;
         RequiredLabel.fontSize = Goal.Required ? (int)(RequiredLabel.fontSize * scale) : (int)(RequiredLabel.fontSize / scale);
-
-        //RequiredLabel.enabled = Goal.Required;
 
         UpdateTitleFontStyle();
     }
