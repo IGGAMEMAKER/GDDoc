@@ -32,7 +32,6 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
     
     public void SetData(Goal goal)
     {
-        //Debug.LogFormat("SetData in GoalView: " + goal.Name);
         Goal = goal;
 
         Redraw();
@@ -44,12 +43,8 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
             RedrawName();
     }
 
-
-
     public void OnEditName(string name)
     {
-        Debug.Log("OnEditName");
-
         Goal.Name = name;
         isInputFormShown = false;
 
@@ -103,13 +98,11 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
         isSelected = true;
-        Debug.LogFormat("Component {0} is selected", Goal.Name);
     }
 
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
         isSelected = false;
-        Debug.Log(this.gameObject.name + " was Deselected");
     }
 
     void Update()
