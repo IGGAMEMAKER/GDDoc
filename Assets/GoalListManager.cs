@@ -35,6 +35,20 @@ public class GoalListManager : MonoBehaviour
         Label.text = topic + " (" + Goals.Count + " goals)";
     }
 
+    void CheckQuitApplication()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+    }
+
+    private void Update()
+    {
+        CheckQuitApplication();
+    }
+
     //void OnGUI()
     //{
     //    int xCenter = (Screen.width / 2);
