@@ -32,7 +32,7 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
     
     public void SetData(Goal goal)
     {
-        Debug.LogFormat("SetData in GoalView: " + goal.Name);
+        //Debug.LogFormat("SetData in GoalView: " + goal.Name);
         Goal = goal;
 
         Redraw();
@@ -71,10 +71,16 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
         InputField.SetActive(false);
     }
 
+    void UpdateTitleFontStyle()
+    {
+        Label.fontStyle = Goal.Required ? FontStyle.Bold : FontStyle.Normal;
+    }
+
     private void RedrawName()
     {
         Label.text = Goal.Name;
         Label.enabled = !isInputFormShown;
+        UpdateTitleFontStyle();
 
         if (isInputFormShown)
             RenderInput();
@@ -115,9 +121,6 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
 
     private void CheckKeys()
     {
-        if (Input.GetKeyUp(KeyCode.B))
-            ToggleIsInBuild();
-
         if (Input.GetKeyUp(KeyCode.R))
             ToggleIsRequired();
     }
@@ -132,11 +135,8 @@ public class GoalView : DoubleClickHandler, IPointerDownHandler, ISelectHandler,
         RequiredLabel.fontStyle = Goal.Required ? FontStyle.Bold : FontStyle.Normal;
         RequiredLabel.fontSize = Goal.Required ? (int)(RequiredLabel.fontSize * scale) : (int)(RequiredLabel.fontSize / scale);
 
-        RequiredLabel.enabled = Goal.Required;
-    }
+        //RequiredLabel.enabled = Goal.Required;
 
-    private void ToggleIsInBuild()
-    {
-        //throw new NotImplementedException();
+        UpdateTitleFontStyle();
     }
 }
