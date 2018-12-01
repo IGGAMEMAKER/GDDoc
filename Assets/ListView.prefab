@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GoalListView: {fileID: 114604047694435736}
-  scrollRect: {fileID: 114958731878784634}
+  ScrollRect: {fileID: 114958731878784634}
   Label: {fileID: 114913117967616174}
 --- !u!114 &114590898803263988
 MonoBehaviour:
@@ -515,7 +515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -552, y: 210}
+  m_AnchoredPosition: {x: -552, y: 310}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224402328696383916

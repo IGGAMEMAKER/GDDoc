@@ -10,7 +10,7 @@ public class GoalListManager : MonoBehaviour
     List<Goal> Goals;
 
     public GoalListView GoalListView;
-    public ScrollRect scrollRect;
+    public ScrollRect ScrollRect;
 
     public Text Label;
     string topic;
@@ -30,7 +30,7 @@ public class GoalListManager : MonoBehaviour
     {
         GoalListView.AddGoal(new Goal());
 
-        scrollRect.horizontalNormalizedPosition = 0;
+        ScrollRect.horizontalNormalizedPosition = 0;
 
         Label.text = topic + " (" + Goals.Count + " goals)";
     }
@@ -41,9 +41,9 @@ public class GoalListManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
-            // https://answers.unity.com/questions/10808/how-to-force-applicationquit-in-web-player-and-edi.html
 
             #if UNITY_EDITOR
+                // https://answers.unity.com/questions/10808/how-to-force-applicationquit-in-web-player-and-edi.html
                 UnityEditor.EditorApplication.isPlaying = false;
             #endif
         }
