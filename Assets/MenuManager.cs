@@ -5,6 +5,8 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour {
     public GameObject GoalMenu;
     public GameObject VisionMenu;
+    public GameObject MarketingMenu;
+    public GameObject GameplayMenu;
 
     Dictionary<Menu, GameObject> Menues;
 
@@ -12,6 +14,8 @@ public class MenuManager : MonoBehaviour {
     {
         Vision,
         Goal,
+        Marketing,
+        Gameplay
     }
 
 	// Use this for initialization
@@ -20,25 +24,40 @@ public class MenuManager : MonoBehaviour {
 
         Menues[Menu.Goal] = GoalMenu;
         Menues[Menu.Vision] = VisionMenu;
+        Menues[Menu.Gameplay] = GameplayMenu;
+        Menues[Menu.Marketing] = MarketingMenu;
 
         GoalMenu.transform.localPosition = Vector3.zero;
         VisionMenu.transform.localPosition = Vector3.zero;
+        MarketingMenu.transform.localPosition = Vector3.zero;
+        GameplayMenu.transform.localPosition = Vector3.zero;
 	}
+
+    void DisableMenues()
+    {
+        foreach (var menu in Menues.Values)
+            menu.SetActive(false);
+    }
+
+    void EnableMenu(GameObject menu)
+    {
+        DisableMenues();
+
+        menu.SetActive(true);
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyUp(KeyCode.F1))
-        {
-            GoalMenu.SetActive(true);
-
-            VisionMenu.SetActive(false);
-        }
+            EnableMenu(GoalMenu);
 
         if (Input.GetKeyUp(KeyCode.F2))
-        {
-            VisionMenu.SetActive(true);
+            EnableMenu(VisionMenu);
 
-            GoalMenu.SetActive(false);
-        }
+        if (Input.GetKeyUp(KeyCode.F3))
+            EnableMenu(MarketingMenu);
+        
+        if (Input.GetKeyUp(KeyCode.F4))
+            EnableMenu(GameplayMenu);
 	}
 }
