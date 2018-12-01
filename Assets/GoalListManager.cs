@@ -35,6 +35,7 @@ public class GoalListManager : MonoBehaviour
         Label.text = topic + " (" + Goals.Count + " goals)";
     }
 
+
     void CheckQuitApplication()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
