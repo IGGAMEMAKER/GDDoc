@@ -40,7 +40,11 @@ public class GoalListManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
-            UnityEditor.EditorApplication.isPlaying = false;
+            // https://answers.unity.com/questions/10808/how-to-force-applicationquit-in-web-player-and-edi.html
+
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #endif
         }
     }
 
