@@ -27,37 +27,37 @@ public class MenuManager : MonoBehaviour {
         Menues[Menu.Gameplay] = GameplayMenu;
         Menues[Menu.Marketing] = MarketingMenu;
 
-        GoalMenu.transform.localPosition = Vector3.zero;
-        VisionMenu.transform.localPosition = Vector3.zero;
-        MarketingMenu.transform.localPosition = Vector3.zero;
-        GameplayMenu.transform.localPosition = Vector3.zero;
+        EnableMenu(Menu.Vision);
 	}
 
     void DisableMenues()
     {
         foreach (var menu in Menues.Values)
+        {
             menu.SetActive(false);
+            menu.transform.localPosition = Vector3.zero;
+        }
     }
 
-    void EnableMenu(GameObject menu)
+    void EnableMenu(Menu menu)
     {
         DisableMenues();
 
-        menu.SetActive(true);
+        Menues[menu].SetActive(true);
     }
-	
+
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyUp(KeyCode.F1))
-            EnableMenu(GoalMenu);
+            EnableMenu(Menu.Goal);
 
         if (Input.GetKeyUp(KeyCode.F2))
-            EnableMenu(VisionMenu);
+            EnableMenu(Menu.Vision);
 
         if (Input.GetKeyUp(KeyCode.F3))
-            EnableMenu(MarketingMenu);
+            EnableMenu(Menu.Marketing);
         
         if (Input.GetKeyUp(KeyCode.F4))
-            EnableMenu(GameplayMenu);
+            EnableMenu(Menu.Gameplay);
 	}
 }
