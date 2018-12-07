@@ -10,7 +10,7 @@ public class Goal
 
     public Goal()
     {
-        Name = "Unnamed Goal";
+        Name = "New Goal";
         Description = "Needs description";
     }
 

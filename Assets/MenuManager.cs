@@ -27,7 +27,7 @@ public class MenuManager : MonoBehaviour {
         Menues[Menu.Gameplay] = GameplayMenu;
         Menues[Menu.Marketing] = MarketingMenu;
 
-        EnableMenu(Menu.Vision);
+        EnableMenu(Menu.Goal);
 	}
 
     void DisableMenues()
