@@ -27,7 +27,7 @@ public class MenuManager : MonoBehaviour {
         Menues[Menu.Gameplay] = GameplayMenu;
         Menues[Menu.Marketing] = MarketingMenu;
 
-        EnableMenu(Menu.Goal);
+        EnableMenu(Menu.Gameplay);
 	}
 
     void DisableMenues()
@@ -46,8 +46,8 @@ public class MenuManager : MonoBehaviour {
         Menues[menu].SetActive(true);
     }
 
-	// Update is called once per frame
-	void Update () {
+    void CheckMenues()
+    {
         if (Input.GetKeyUp(KeyCode.F1))
             EnableMenu(Menu.Goal);
 
@@ -56,8 +56,28 @@ public class MenuManager : MonoBehaviour {
 
         if (Input.GetKeyUp(KeyCode.F3))
             EnableMenu(Menu.Marketing);
-        
+
         if (Input.GetKeyUp(KeyCode.F4))
             EnableMenu(Menu.Gameplay);
+    }
+
+	// Update is called once per frame
+	void Update () {
+        CheckMenues();
+        CheckQuitApplication();
 	}
+
+    void CheckQuitApplication()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+
+            #if UNITY_EDITOR
+                // https://answers.unity.com/questions/10808/how-to-force-applicationquit-in-web-player-and-edi.html
+                //UnityEditor.EditorGUI.DrawRect(new Rect(0, 0, 100, 50), Color.white);
+                UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+        }
+    }
 }

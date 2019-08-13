@@ -35,25 +35,6 @@ public class GoalListManager : MonoBehaviour
         Label.text = topic + " (" + Goals.Count + " goals)";
     }
 
-
-    void CheckQuitApplication()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-
-            #if UNITY_EDITOR
-                // https://answers.unity.com/questions/10808/how-to-force-applicationquit-in-web-player-and-edi.html
-                UnityEditor.EditorApplication.isPlaying = false;
-            #endif
-        }
-    }
-
-    private void Update()
-    {
-        CheckQuitApplication();
-    }
-
     //void OnGUI()
     //{
     //    int xCenter = (Screen.width / 2);
