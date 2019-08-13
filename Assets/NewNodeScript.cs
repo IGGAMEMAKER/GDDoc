@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NewNodeScript : MonoBehaviour,
-    IPointerClickHandler,
-    IPointerExitHandler
+public class NewNodeScript : MonoBehaviour
+    , IPointerClickHandler
+    //, IPointerExitHandler
+    //, IPoin
 {
     [Tooltip("Only set this")]
     public GameObject NewNodePrefab;
@@ -30,15 +31,28 @@ public class NewNodeScript : MonoBehaviour,
             CheckInput();
     }
 
+    void AddNextNode()
+    {
+        Next = SpawnNewNode();
+        Next.gameObject.transform.position = transform.position + new Vector3(100, 0, 0);
+
+        SetSelected(false);
+        Next.SetSelected(true);
+    }
+
+    void AddPreviousNode()
+    {
+
+    }
+
     void CheckInput()
     {
         if (Input.GetKeyUp(KeyCode.Tab))
         {
-            Next = SpawnNewNode();
-            Next.gameObject.transform.position = transform.position + new Vector3(50, 0, 0);
-
-            Next.SetSelected(true);
-            SetSelected(false);
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+                AddPreviousNode();
+            else
+                AddNextNode();
         }
     }
 
@@ -67,8 +81,8 @@ public class NewNodeScript : MonoBehaviour,
         SetSelected(true);
     }
 
-    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
-    {
-        SetSelected(false);
-    }
+    //void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    //{
+    //    SetSelected(false);
+    //}
 }
