@@ -31,6 +31,17 @@ public class NewNodeScript : MonoBehaviour
             CheckInput();
     }
 
+    void OnGUI()
+    {
+        if (isSelected)
+        {
+            if (GUI.Button(new Rect(10, 10, 150, 100), "I am a button"))
+            {
+                print("You clicked the button!");
+            }
+        }
+    }
+
     void AddNextNode()
     {
         Next = SpawnNewNode();
