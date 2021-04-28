@@ -53,6 +53,7 @@ public class NodeManager : MonoBehaviour
         };
         AddNode("Name", "Consequence", "Trigger", Color.black);
 
+
         for (var i = 0; i < 30; i++)
         {
             var o = Instantiate(NodePrefab);
