@@ -42,7 +42,7 @@ public class Loop
     public string Name;
 
     // emotions
-    public List<Emotion> Fun;
+    public List<Emotion> Emotions;
 
     // gameplay
     public List<Decision> Decisions;
