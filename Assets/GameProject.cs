@@ -16,14 +16,15 @@ public class GameProject
 
 public class Vision
 {
+    public string Challenge; // will be tough, but achievable
+    public string Goals;
+
+    public List<string> Roles;
+
     public List<Emotion> Emotions;
     public List<Decision> Decisions;
 
-    public List<string> Roles;
     public string Atmosphere; // Art, Theme, Words
-
-    public string Challenge; // will be tough, but achievable
-    public string Goals;
 }
 
 public class MarketingPlan
@@ -54,6 +55,12 @@ public class Loop
     public long CycleLength;
 
     public List<Loop> SubLoops;
+}
+
+public class GameEvent
+{
+    public string Name;
+    public string Purpose;
 }
 
 public class Player
