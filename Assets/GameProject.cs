@@ -3,15 +3,28 @@
 // Understand what is it
 // Know details
 
-public class GameProject
+// PreMVP: some fun
+// MVP: Art + some fun
+
+// Project will be released when 
+// * all / most risks are checked 
+// * all / most promises are surpassed or met
+
+public class Project
 {
-    // WHAT
-    public List<Player> Players;
+    // What
     public Vision Vision;
+    public List<Player> Players;
 
     // How
     public MarketingPlan Marketing;
     public List<GameStage> Gameplay;
+
+    // When
+
+    // Success or fail?
+    public string WhyThisWillWork; // Why people will want to play + recommend
+    public List<Risk> Risks;
 }
 
 public class Vision
@@ -19,10 +32,11 @@ public class Vision
     public string Challenge; // will be tough, but achievable
     public string Goals;
 
-    public List<string> Roles;
+    public string Roles;
+    public string Playstyles;
 
-    public List<Emotion> Emotions;
     public List<Decision> Decisions;
+    public List<Emotion> Emotions;
 
     public string Atmosphere; // Art, Theme, Words
 }
@@ -33,10 +47,12 @@ public class MarketingPlan
     public string GainPlayers;
     public string HoldPlayers;
 
-    // Why people will
-    public List<string> Care; // making true fans
-    public List<string> Share; // recommending the game
+    public string CTAs;
+
+    public List<Channel> Channels;
 }
+
+#region Gameplay
 
 public class Loop
 {
@@ -84,4 +100,29 @@ public class GameStage
 {
     public string Name;
     public List<Loop> Loops;
+    public List<GameEvent> Events;
+}
+
+#endregion
+
+public class Channel
+{
+    public string Name;
+}
+
+public class Risk
+{
+    public string Name;
+    public string HowToCheckIt;
+}
+
+public class Iteration
+{
+    public string Name;
+
+    public MarketingPlan Marketing;
+    public List<GameStage> Gameplay;
+
+    public int Duration;
+    public string Goal;
 }
