@@ -23,10 +23,11 @@ public class Project
     public List<GameStage> Gameplay;
 
     // When
+    public Dictionary<string, int> QuantityMetrics; // subs, wishlists, activity
+    public List<Risk> Risks;
 
     // Success or fail?
     public string WhyThisWillWork; // Why people will want to play + recommend
-    public List<Risk> Risks;
 }
 
 public class Vision
