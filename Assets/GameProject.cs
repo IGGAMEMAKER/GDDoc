@@ -8,7 +8,9 @@
 
 // Project will be released when 
 // * all / most risks are checked 
-// * all / most promises are surpassed or met
+// * all / most promises are met or surpassed
+// * quantitative metrics are fine
+// * players are superengaged
 
 public class Project
 {
@@ -109,6 +111,10 @@ public class Channel
 {
     public string Name;
 }
+
+// Wanna play
+// Wanna pay
+// Wanna share
 
 public class Risk
 {
