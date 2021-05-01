@@ -14,26 +14,46 @@
 
 public class Project
 {
-    // What
-    public Vision Vision;
-    public List<Player> Players;
+    // IDEA
+    public Idea Idea;
 
-    // How
-    public MarketingPlan Marketing;
-    public List<GameStage> Gameplay;
+    // IMPLEMENTATION (How)
+    public List<Iteration> Iterations;
+    public Iteration MVP;
+    public Iteration Demo;
+    public Iteration Release;
+    public Iteration Dream;
+
+    // RELEASE
+
+    // Risks (Threats) What can reduce chances
+    public List<Risk> Risks;
 
     // When
     public Dictionary<string, int> QuantityMetrics; // subs, wishlists, activity
-    public List<Risk> Risks;
 
-    // Success or fail?
-    public string WhyThisWillWork; // Why people will want to play + recommend
+    // POSTRELEASE
+}
+
+public class Idea
+{
+    // What
+    public Vision Vision;
+
+    // Who
+    public List<Player> Players;
+
+    // Success (Urge)
+    public string WhyThisWillWork; // cause people with traits X will get the ability and place to do Y
+    public string WhyPeopleCantIgnoreIt; // absurds, CTAs (clickbaits ------ calm stuff)
+    public string WhyPeopleWillBuyIt; // followed from the start, were engaged (played betas, gave feedback, spoke with dev)
+    public string WhyPeopleWillRecommend;
 }
 
 public class Vision
 {
-    public string Challenge; // will be tough, but achievable
     public string Goals;
+    public string Challenge; // will be tough, but achievable
 
     public string Roles;
     public string Playstyles;
@@ -44,13 +64,13 @@ public class Vision
     public string Atmosphere; // Art, Theme, Words
 }
 
-public class MarketingPlan
+public class Marketing
 {
     // HOW TO
     public string GainPlayers;
     public string HoldPlayers;
 
-    public string CTAs;
+    public List<string> CTAs;
 
     public List<Channel> Channels;
 }
@@ -123,12 +143,18 @@ public class Risk
     public string HowToCheckIt;
 }
 
+public class Gameplay
+{
+    public List<GameStage> Stages;
+}
+
+// KPIs?
 public class Iteration
 {
     public string Name;
 
-    public MarketingPlan Marketing;
-    public List<GameStage> Gameplay;
+    public Marketing Marketing;
+    public Gameplay Gameplay;
 
     public int Duration;
     public string Goal;
