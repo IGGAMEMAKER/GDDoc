@@ -15,42 +15,38 @@
 public class Project
 {
     // IDEA
-    public Idea Idea;
+    public Vision Vision;
 
     // IMPLEMENTATION (How)
     public List<Iteration> Iterations;
-    public Iteration MVP;
-    public Iteration Demo;
-    public Iteration Release;
-    public Iteration Dream;
+    public Iteration MVP; // some fun
+    public Iteration Demo; // Art + some fun
+    public Iteration RELEASE;
+    public Iteration PostRelease;
+    public Iteration DREAM;
 
     // RELEASE
-
-    // Risks (Threats) What can reduce chances
     public List<Risk> Risks;
-
-    // When
     public Dictionary<string, int> QuantityMetrics; // subs, wishlists, activity
-
-    // POSTRELEASE
 }
 
-public class Idea
+public class Vision
 {
     // What
-    public Vision Vision;
+    public Idea Idea;
 
     // Who
     public List<Player> Players;
 
     // Success (Urge)
     public string WhyThisWillWork; // cause people with traits X will get the ability and place to do Y
+
     public string WhyPeopleCantIgnoreIt; // absurds, CTAs (clickbaits ------ calm stuff)
     public string WhyPeopleWillBuyIt; // followed from the start, were engaged (played betas, gave feedback, spoke with dev)
     public string WhyPeopleWillRecommend;
 }
 
-public class Vision
+public class Idea
 {
     public string Goals;
     public string Challenge; // will be tough, but achievable
@@ -102,12 +98,6 @@ public class GameEvent
     public string Purpose;
 }
 
-public class Player
-{
-    public string Name;
-    public string Description;
-}
-
 // Fun, Expectations, Emotions, Achievement
 public class Emotion
 {
@@ -127,6 +117,12 @@ public class GameStage
 }
 
 #endregion
+
+public class Player
+{
+    public string Name;
+    public string Description;
+}
 
 public class Channel
 {
