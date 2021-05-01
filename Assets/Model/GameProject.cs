@@ -3,14 +3,11 @@
 // Understand what is it
 // Know details
 
-// PreMVP: some fun
-// MVP: Art + some fun
-
 // Project will be released when 
 // * all / most risks are checked 
 // * all / most promises are met or surpassed
 // * quantitative metrics are fine
-// * players are superengaged
+// * players are superengaged (there are people who will support game no matter what)
 
 public class Project
 {
@@ -20,10 +17,12 @@ public class Project
     // IMPLEMENTATION (How)
     public List<Iteration> Iterations;
     public Iteration MVP; // some fun
-    public Iteration Demo; // Art + some fun
+    public Iteration Demo; // Artsy MVP
     public Iteration RELEASE;
     public Iteration PostRelease;
     public Iteration DREAM;
+
+    // TWEAKS???
 
     // RELEASE
     public List<Risk> Risks;
@@ -33,7 +32,9 @@ public class Project
 public class Vision
 {
     // What
+    public string WhatFeelingsDoYouWantToCreate;
     public Idea Idea;
+    public List<string> WhatsFun;
 
     // Who
     public List<Player> Players;
@@ -60,73 +61,10 @@ public class Idea
     public string Atmosphere; // Art, Theme, Words
 }
 
-public class Marketing
-{
-    // HOW TO
-    public string GainPlayers;
-    public string HoldPlayers;
-
-    public List<string> CTAs;
-
-    public List<Channel> Channels;
-}
-
-#region Gameplay
-
-public class Loop
-{
-    public string Name;
-
-    // emotions
-    public List<Emotion> Emotions;
-
-    // gameplay
-    public List<Decision> Decisions;
-    public List<string> Errors; // Errors: Consequences, Preventing, Fixing
-    public List<string> Education;
-
-    // Low level
-    public List<string> Resources;
-    public long CycleLength;
-
-    public List<Loop> SubLoops;
-}
-
-public class GameEvent
-{
-    public string Name;
-    public string Purpose;
-}
-
-// Fun, Expectations, Emotions, Achievement
-public class Emotion
-{
-    public string Name;
-}
-
-public class Decision
-{
-    public List<string> Choices;
-}
-
-public class GameStage
-{
-    public string Name;
-    public List<Loop> Loops;
-    public List<GameEvent> Events;
-}
-
-#endregion
-
 public class Player
 {
     public string Name;
     public string Description;
-}
-
-public class Channel
-{
-    public string Name;
 }
 
 // Wanna play
@@ -139,10 +77,6 @@ public class Risk
     public string HowToCheckIt;
 }
 
-public class Gameplay
-{
-    public List<GameStage> Stages;
-}
 
 // KPIs?
 public class Iteration
