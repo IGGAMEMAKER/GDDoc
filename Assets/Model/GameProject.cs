@@ -3,8 +3,8 @@
 // Understand what is it
 // Know details
 
-// Project will be released when 
-// * all / most risks are checked 
+// Project will be released when
+// * all / most risks are checked
 // * all / most promises are met or surpassed
 // * quantitative metrics are fine
 // * players are superengaged (there are people who will support game no matter what)
