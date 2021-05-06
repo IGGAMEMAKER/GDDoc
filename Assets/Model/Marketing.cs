@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+// Understand what is it => Know details
+
 public class Marketing
 {
     // HOW TO
@@ -14,4 +16,10 @@ public class Marketing
 public class Channel
 {
     public string Name;
+}
+
+public class Player
+{
+    public string Name;
+    public string Description;
 }
