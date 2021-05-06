@@ -8,15 +8,13 @@ public class Project
 
 public class Vision
 {
-    // What
-    public List<string> WhatFeelingsDoYouWantToCreate;
-    public List<string> WhatsFun;
     public Idea Idea;
-
-    // Who
     public List<Player> Players;
 
     // Success (Urge)
+    public List<Emotion> WhatFeelingsDoYouWantToCreate;
+    public List<string> WhatsFun;
+
     public string WhyThisWillWork; // cause people with traits X will get the ability and place to do Y
 
     public string WhyPeopleCantIgnoreIt; // absurds, CTAs (clickbaits ------ calm stuff)
@@ -27,13 +25,10 @@ public class Vision
 public class Idea
 {
     public string Goals;
-    public string Challenge; // will be tough, but achievable
-
+    public string Challenge; // tough, but achievable
     public string Roles;
     public string Playstyles;
 
     public List<Decision> Decisions;
-    public List<Emotion> Emotions;
-
     public string Atmosphere; // Art, Theme, Words
 }
