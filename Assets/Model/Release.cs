@@ -13,6 +13,10 @@ public class Release
 
     // IMPLEMENTATION (How)
     public List<Iteration> Iterations; // MVP; // some fun // Demo; // Artsy MVP // RELEASE; // PostRelease; // DREAM;
+
+    public string WhyPeopleCantIgnoreIt; // absurds, CTAs (clickbaits ------ calm stuff)
+    public string WhyPeopleWillBuyIt; // followed from the start, were engaged (played betas, gave feedback, spoke with dev)
+    public string WhyPeopleWillRecommendIt;
 }
 
 public class Iteration
