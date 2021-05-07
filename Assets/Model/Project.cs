@@ -12,7 +12,7 @@ public class Project
 public class Idea
 {
     // Urge
-    public List<Emotion> WhatFeelingsDoYouWantToCreate;
+    public List<Emotion> WhatFeelingsDoYouCreate;
     public List<string> WhatsFun;
 
     public List<string> Goals;
