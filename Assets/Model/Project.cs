@@ -26,10 +26,9 @@ public class Idea
 
 public class Success
 {
-    public List<Risk> Risks;
-
     public string WhyPeopleCantIgnoreIt; // absurds, CTAs (clickbaits ------ calm stuff)
     public string WhyPeopleWillBuyIt; // followed from the start, were engaged (played betas, gave feedback, spoke with dev)
     public string WhyPeopleWillRecommendIt;
+
     public string WhyThisWillWork; // cause people with traits X will get the ability and place to do Y
 }

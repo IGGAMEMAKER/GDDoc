@@ -1,17 +1,5 @@
 ﻿using System.Collections.Generic;
 
-// Understand what is it => Know details
-
-public class MarketingActivity
-{
-
-}
-
-public class Channel
-{
-    public string Name;
-}
-
 public class Player
 {
     public string Name;
@@ -21,11 +9,13 @@ public class Player
 public class Audience
 {
     public List<Player> Players;
+    public string HowToSpeakWithPlayers;
 
     // HOW TO
     public string GainPlayers;
     public string HoldPlayers;
 
+    // Understand what is it => Know details
     public List<string> CTAs;
 
     public List<Channel> Channels;
@@ -37,4 +27,14 @@ public class Audience
     // * TITLE
     // * TRAILERS
     // * DESCRIPTION
+}
+
+public class MarketingActivity
+{
+
+}
+
+public class Channel
+{
+    public string Name;
 }

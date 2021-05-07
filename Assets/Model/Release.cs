@@ -7,6 +7,8 @@
 // * players are superengaged (there are people who will support game no matter what)
 public class Release
 {
+    public List<Risk> Risks;
+
     public Dictionary<string, int> QuantityMetrics; // subs, wishlists, activity
 
     public List<Iteration> Iterations;
