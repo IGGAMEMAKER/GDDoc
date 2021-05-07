@@ -21,7 +21,7 @@ public class Iteration
 {
     public string Name;
 
-    public Marketing Marketing;
+    public MarketingActivity Marketing;
     public Gameplay Gameplay;
 
     // KPIs?

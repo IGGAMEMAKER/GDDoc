@@ -2,15 +2,9 @@
 
 // Understand what is it => Know details
 
-public class Marketing
+public class MarketingActivity
 {
-    // HOW TO
-    public string GainPlayers;
-    public string HoldPlayers;
 
-    public List<string> CTAs;
-
-    public List<Channel> Channels;
 }
 
 public class Channel
@@ -27,4 +21,20 @@ public class Player
 public class Audience
 {
     public List<Player> Players;
+
+    // HOW TO
+    public string GainPlayers;
+    public string HoldPlayers;
+
+    public List<string> CTAs;
+
+    public List<Channel> Channels;
+    // STEAM STORE PAGE
+
+    // MARKETING MATERIALS:
+    // * SCREENSHOTS
+    // * NAME
+    // * TITLE
+    // * TRAILERS
+    // * DESCRIPTION
 }
