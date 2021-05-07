@@ -23,3 +23,8 @@ public class Player
     public string Name;
     public string Description;
 }
+
+public class Audience
+{
+    public List<Player> Players;
+}

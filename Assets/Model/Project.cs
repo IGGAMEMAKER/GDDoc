@@ -2,16 +2,13 @@
 
 public class Project
 {
-    public Vision Vision;
-    public Release Release;
-}
-
-public class Vision
-{
+    // PLAN
     public Idea Idea;
-    public List<Player> Players;
+    public Audience Audience;
+    public Success WhyThisWillWork;
 
-    public string WhyThisWillWork; // cause people with traits X will get the ability and place to do Y
+    // EXECUTION
+    public Release Release;
 }
 
 public class Idea
