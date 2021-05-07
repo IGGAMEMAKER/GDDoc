@@ -5,6 +5,13 @@ public class Gameplay
     public List<GameStage> Stages;
 }
 
+public class GameStage
+{
+    public string Name;
+    public List<Loop> Loops;
+    public List<GameEvent> Events;
+}
+
 public class Loop
 {
     public string Name;
@@ -39,11 +46,4 @@ public class Emotion
 public class Decision
 {
     public List<string> Choices;
-}
-
-public class GameStage
-{
-    public string Name;
-    public List<Loop> Loops;
-    public List<GameEvent> Events;
 }

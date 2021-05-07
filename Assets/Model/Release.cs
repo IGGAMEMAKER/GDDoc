@@ -1,11 +1,20 @@
 ﻿using System.Collections.Generic;
 
+// Project will be released when
+// * all / most risks are checked
+// * all / most promises are met or surpassed
+// * quantitative metrics are fine
+// * players are superengaged (there are people who will support game no matter what)
 public class Release
 {
     public Dictionary<string, int> QuantityMetrics; // subs, wishlists, activity
 
-    // IMPLEMENTATION (How)
-    public List<Iteration> Iterations; // Abstract iteration (campaign prototype, gameplay prototype) // MVP; // some fun // Demo; // Artsy MVP // RELEASE; // PostRelease; // DREAM;
+    public List<Iteration> Iterations;
+    // Abstract iteration (campaign prototype, gameplay prototype)
+    // MVP; // some fun
+    // Demo; // Artsy MVP
+    // RELEASE;
+    // PostRelease; // DREAM;
 }
 
 public class Iteration
@@ -17,5 +26,5 @@ public class Iteration
 
     // KPIs?
     public int Duration;
-    public string Goal;
+    public string Goal; // Risk reducing? Promise execution
 }
