@@ -9,17 +9,15 @@ public class Player
 public class Audience
 {
     public List<Player> Players;
-    public string HowToSpeakWithPlayers;
 
     // HOW TO
+    public string HowToSpeakWithPlayers;
+
     public string GainPlayers;
     public string HoldPlayers;
 
     // Understand what is it => Know details
     public List<string> CTAs;
-
-    public List<Channel> Channels;
-    // STEAM STORE PAGE
 
     // MARKETING MATERIALS:
     // * SCREENSHOTS
@@ -29,10 +27,7 @@ public class Audience
     // * DESCRIPTION
 }
 
-public class MarketingActivity
-{
-
-}
+public class MarketingActivity { }
 
 public class Channel
 {

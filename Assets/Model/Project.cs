@@ -2,19 +2,21 @@
 
 public class Project
 {
+    // Urge
+    public List<Emotion> WhatFeelingsDoYouCreate;
+    public List<string> WhatsFun;
+
     public Idea Idea;
     public Audience Audience;
+
     public Success WhyThisWillWork;
+    public List<Risk> Risks;
 
     public Release Release;
 }
 
 public class Idea
 {
-    // Urge
-    public List<Emotion> WhatFeelingsDoYouCreate;
-    public List<string> WhatsFun;
-
     public List<string> Goals;
     public List<string> Challenge; // tough, but achievable
     public List<string> Roles;
@@ -29,6 +31,6 @@ public class Success
     public string WhyPeopleCantIgnoreIt; // absurds, CTAs (clickbaits ------ calm stuff)
     public string WhyPeopleWillBuyIt; // followed from the start, were engaged (played betas, gave feedback, spoke with dev)
     public string WhyPeopleWillRecommendIt;
-
+    // Give > Promise
     public string WhyThisWillWork; // cause people with traits X will get the ability and place to do Y
 }

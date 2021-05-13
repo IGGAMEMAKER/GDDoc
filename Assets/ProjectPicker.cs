@@ -13,26 +13,18 @@ public class ProjectPicker : MonoBehaviour
         {
             Players = new List<Player>(),
 
-            Channels = new List<Channel>(),
             CTAs = new List<string>(),
+
+            HowToSpeakWithPlayers = ""
         };
 
-
-        Idea idea = new Idea
+        var idea = new Idea
         {
             Atmosphere = "Atmosphere",
             Challenge = new List<string>(),
         };
 
-        Release release = new Release
-        {
-            Risks = new List<Risk>(),
-
-            Iterations = new List<Iteration>(),
-            QuantityMetrics = new Dictionary<string, int>()
-        };
-
-        Success success = new Success
+        var success = new Success
         {
             WhyPeopleCantIgnoreIt = "",
             WhyPeopleWillBuyIt = "",
@@ -40,18 +32,24 @@ public class ProjectPicker : MonoBehaviour
             WhyThisWillWork = ""
         };
 
+        var release = new Release
+        {
+            Iterations = new List<Iteration>(),
+            QuantityMetrics = new Dictionary<string, int>(),
+
+            Channels = new List<Channel>(),
+        };
+
         Project = new Project
         {
+            WhatsFun = new List<string> { "Fun" },
+            WhatFeelingsDoYouCreate = new List<Emotion> { new Emotion() },
+
             Audience = audience,
             Idea = idea,
             Release = release,
-            WhyThisWillWork = success
+            WhyThisWillWork = success,
+            Risks = new List<Risk>(),
         };
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
