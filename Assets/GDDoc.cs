@@ -10,14 +10,14 @@ public class GDDoc : EditorWindow
 
     private void OnGUI()
     {
-        test = GetProp<string>(test, "test");
+        test = GetProp(test, "test");
 
         EditorGUILayout.LabelField(test);
 
         var audience = new Audience
         {
             Players = new List<Player>(),
-            Triggers = new List<string>(),
+            Triggers = new List<string>(), // can take from idea or make random clickbaits
 
             HowToSpeakWithPlayers = ""
         };
@@ -25,11 +25,11 @@ public class GDDoc : EditorWindow
         var idea = new Idea
         {
             Atmosphere = "Atmosphere",
-            Challenge = new List<string>(),
 
             Decisions = new List<Decision>(),
-            Goals = new List<string>(),
             Playstyles = new List<string>(),
+            Challenge = new List<string>(),
+            Goals = new List<string>(),
             Roles = new List<string>()
         };
 
@@ -62,30 +62,69 @@ public class GDDoc : EditorWindow
             Risks = new List<Risk>(),
         };
 
-        // Get the properties of 'Type' class object.
-        var myPropertyInfo = typeof(Project).GetFields(); // Type.GetType("Project").GetProperties();
+        var myPropertyInfo = typeof(Project).GetFields();
 
-        Debug.Log("Properties of Project are: " + myPropertyInfo.Length);
+        //Debug.Log("Properties of Project are: " + myPropertyInfo.Length);
 
         for (int i = 0; i < myPropertyInfo.Length; i++)
         {
             var info = myPropertyInfo[i];
-            var name = info.Name.ToString();
 
-            if (!Foldouts.ContainsKey(info.Name))
-                Foldouts[info.Name] = false;
+            RenderFieldInfo(info, "");
+        }
 
-            Foldouts[info.Name] = EditorGUILayout.Foldout(Foldouts[info.Name], name, true);
+        int depth = 0;
+        RenderParameter(Project, ref depth);
+    }
 
-            if (Foldouts[info.Name])
-                GUILayout.Label(name);
+    public void RenderParameter<T>(T parameter, ref int depth)
+    {
+        var myPropertyInfo = typeof(T).GetFields();
+        Debug.Log("parameter type " + parameter.GetType());
+
+        for (int i = 0; i < myPropertyInfo.Length; i++)
+        {
+            var info = myPropertyInfo[i];
+
+            //RenderFieldInfo(info, "");
+
+            //if (info.FieldType.IsEquivalentTo(typeof(string)))
+            //{
+            //    RenderFieldInfo(info, info.Name);
+            //}
+
+            //if (info.)
+            depth++;
+
+            if (depth < 100)
+                RenderParameter(info.FieldType, ref depth);
         }
     }
 
-    //public void RenderProp<T>(T prop)
-    //{
-    //    if ()
-    //}
+    public void RenderFieldInfo(System.Reflection.FieldInfo info, string prefix)
+    {
+        var name = info.Name.ToString();
+        var fullName = prefix + info.Name;
+
+        if (!Foldouts.ContainsKey(fullName))
+            Foldouts[fullName] = false;
+
+        Foldouts[fullName] = EditorGUILayout.Foldout(Foldouts[fullName], name, true);
+
+        if (Foldouts[fullName])
+        {
+            GUILayout.Label($"{info.FieldType} {fullName}");
+            //if (info.FieldType.IsEquivalentTo(typeof(string)))
+            //{
+            //    var val = "";
+            //    val = GetProp<string>(val, fullName);
+            //}
+            //else
+            //{
+            //    GUILayout.Label(name);
+            //}
+        }
+    }
 
     //public string GetProp<T>(T str)
     //{
@@ -100,10 +139,22 @@ public class GDDoc : EditorWindow
     //    }
     //}
 
-    public string GetProp<T>(string str, string label)
+    public string GetProp(string str, string label)
     {
         GUILayout.Label(label);
 
         return GUILayout.TextField(str, 25);
+    }
+
+    public List<string> GetProp<T>(List<string> str, string label)
+    {
+        GUILayout.Label(label);
+
+        for (var i = 0; i < str.Count; i++)
+        {
+            GetProp(str[i], "#" + i);
+        }
+
+        return str;
     }
 }
