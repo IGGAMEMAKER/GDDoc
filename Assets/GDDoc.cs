@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,17 +7,11 @@ using UnityEngine;
 
 public class GDDoc : EditorWindow
 {
-    string test = "ghgh";
-
     public Dictionary<string, bool> Foldouts = new Dictionary<string, bool>();
     public Vector2 scrollView = Vector2.zero;
 
     private void OnGUI()
     {
-        //test = GetProp(test, "test");
-
-        //EditorGUILayout.LabelField(test);
-
         var audience = new Audience
         {
             Players = new List<Player>(),
@@ -82,6 +77,9 @@ public class GDDoc : EditorWindow
         //RenderParameter(idea, ref depth);
 
         //GUILayout.Space(25);
+        //Describe(GetPropValue(project, "Release"));
+        //Describe(project.Release);
+
         RenderParameter(project, ref depth);
         GUILayout.Space(25);
 
@@ -89,10 +87,21 @@ public class GDDoc : EditorWindow
         //RenderParameter(typeof(Project), ref depth);
 
 
+        //GUILayout.Label("To JSON: " + JsonUtility.ToJson(project.Release, true));
+        //GUILayout.Label("Prop: " + JsonUtility.ToJson(GetProperty(project, "Release"), true));
+
+
         GUILayout.Space(25);
         //RenderParameter(typeof(Project), ref depth);
 
         EditorGUILayout.EndScrollView();
+    }
+
+    void Describe(object value)
+    {
+        var jsonString = JsonUtility.ToJson(value, true);
+
+        GUILayout.Label($"{name} ({value.GetType()}) \n{jsonString}");
     }
 
     public void RenderParameter<T>(T parameter, ref int depth)
@@ -108,6 +117,7 @@ public class GDDoc : EditorWindow
             depth++;
 
             var name = info.Name.ToString();
+            var fieldType = info.FieldType;
 
             EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
 
@@ -115,12 +125,29 @@ public class GDDoc : EditorWindow
             var value = GetPropValue(parameter, name);
             var jsonString = JsonUtility.ToJson(value, true);
 
-            GUILayout.Label($"{name} ({info.FieldType}) \n{jsonString}");
+            GUILayout.Label($"{name} ({fieldType}, {value.GetType()}) \n{jsonString}");
 
             RenderParameter(value, ref depth);
 
             EditorGUILayout.EndFoldoutHeaderGroup();
         }
+    }
+
+    static T GetJSONDataFromFile<T>(string jsonString)
+    {
+        try
+        {
+            var obj = JsonUtility.FromJson<T>(jsonString);
+
+            if (obj != null)
+                return obj;
+        }
+        catch
+        {
+            // This is handled in GetCountableAssetsFromFile function
+        }
+
+        return (T)Activator.CreateInstance(typeof(T));
     }
 
     public static object GetPropValue(object src, string propName)
@@ -129,6 +156,16 @@ public class GDDoc : EditorWindow
         Debug.Log("Trying to get property " + propName + " from object " + src);
 
         var value = src.GetType().GetField(propName).GetValue(src);
+
+        return value;
+    }
+
+    public static object GetProperty(object src, string propName)
+    {
+        // https://stackoverflow.com/questions/1196991/get-property-value-from-string-using-reflection
+        //Debug.Log("Trying to get property " + propName + " from object " + src);
+
+        var value = src.GetType().GetProperty(propName).GetValue(src);
 
         return value;
     }
