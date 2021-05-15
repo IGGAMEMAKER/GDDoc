@@ -83,6 +83,9 @@ public class GDDoc : EditorWindow
 
         //GUILayout.Space(25);
         RenderParameter(project, ref depth);
+        GUILayout.Space(25);
+
+        RenderParameter(project.Release, ref depth);
         //RenderParameter(typeof(Project), ref depth);
 
 
@@ -108,12 +111,11 @@ public class GDDoc : EditorWindow
 
             EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
 
-            GUILayout.Label($"{name} ({info.FieldType})");
 
             var value = GetPropValue(parameter, name);
             var jsonString = JsonUtility.ToJson(value, true);
 
-            Debug.Log(jsonString);
+            GUILayout.Label($"{name} ({info.FieldType}) \n{jsonString}");
 
             RenderParameter(value, ref depth);
 
