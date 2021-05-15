@@ -82,7 +82,7 @@ public class GDDoc : EditorWindow
         //RenderParameter(idea, ref depth);
 
         //GUILayout.Space(25);
-        RenderParameter(project, ref depth);
+        RenderParameter(project, ref depth, false);
         //RenderParameter(typeof(Project), ref depth);
 
 
@@ -92,11 +92,16 @@ public class GDDoc : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
-    public void RenderParameter<T>(T parameter, ref int depth)
+    public void RenderParameter<T>(T parameter, ref int depth, bool nested)
     {
+        if (nested)
+        {
+            GUILayout.Label("Nested");
+        }
+
         var myPropertyInfo = typeof(T).GetFields();
 
-        Debug.Log("CHECKING parameter type " + parameter);
+        Debug.Log("CHECKING " + parameter + " " + myPropertyInfo.Length);
 
         for (int i = 0; i < myPropertyInfo.Length; i++)
         {
@@ -107,21 +112,23 @@ public class GDDoc : EditorWindow
             var name = info.Name.ToString();
             var fullName = depth + info.Name;
 
-            Debug.Log("Field: " + name + " " + fullName);
-
             if (!Foldouts.ContainsKey(fullName))
                 Foldouts[fullName] = false;
 
             EditorGUILayout.BeginFoldoutHeaderGroup(true, name);
-            //Foldouts[fullName] = EditorGUILayout.BeginFoldoutHeaderGroup(Foldouts[fullName], name);
-            //Foldouts[fullName] = EditorGUILayout.Foldout(Foldouts[fullName], name, true);
 
             if (Foldouts[fullName] || true)
             {
-                GUILayout.Label($"{info.FieldType} {fullName}");
+                GUILayout.Label($"{name} ({info.FieldType})");
 
-                RenderParameter(GetPropValue(parameter, info.Name), ref depth);
-                //RenderParameter(info.GetValue(info), ref depth);
+                var value = GetPropValue(parameter, info.Name);
+
+                if (info.FieldType.ToString().Contains("Success"))
+                {
+                    GUILayout.Label("SUCCESS " + ((Success)value).WhyPeopleCantIgnoreIt.Length);
+                }
+
+                RenderParameter(value, ref depth, true);
             }
 
             EditorGUILayout.EndFoldoutHeaderGroup();
@@ -135,54 +142,8 @@ public class GDDoc : EditorWindow
 
         var value = src.GetType().GetField(propName).GetValue(src);
 
-        Debug.Log("Got " + value);
-
         return value;
     }
-
-    public void RenderFieldInfo(System.Reflection.FieldInfo info, string prefix)
-    {
-        var name = info.Name.ToString();
-        var fullName = prefix + info.Name;
-
-        Debug.Log("Field: " + name + " " + fullName);
-
-        if (!Foldouts.ContainsKey(fullName))
-            Foldouts[fullName] = false;
-
-        Foldouts[fullName] = EditorGUILayout.Foldout(Foldouts[fullName], name, true);
-
-        if (Foldouts[fullName])
-        {
-            GUILayout.Label($"{info.FieldType} {fullName}");
-        }
-    }
-
-    void RenderField()
-    {
-        //if (info.FieldType.IsEquivalentTo(typeof(string)))
-        //{
-        //    var val = "";
-        //    val = GetProp<string>(val, fullName);
-        //}
-        //else
-        //{
-        //    GUILayout.Label(name);
-        //}
-    }
-
-    //public string GetProp<T>(T str)
-    //{
-    //    T newT = new T();
-
-    //    foreach (var p in typeof(T).GetFields())
-    //    {
-    //        if (p is string)
-    //        {
-
-    //        }
-    //    }
-    //}
 
     public string GetProp(string str, string label)
     {
