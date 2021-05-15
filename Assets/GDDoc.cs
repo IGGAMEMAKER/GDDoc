@@ -1,25 +1,22 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class ProjectPicker : MonoBehaviour
+public class GDDoc : EditorWindow
 {
-    public Project Project;
+    string test = "ghgh";
 
-    [MenuItem("GDD/Menu")]
-    static void Init()
-    {
-        EditorWindow window = EditorWindow.GetWindow(typeof(GDDoc));
-        window.Show();
-    }
+    public Dictionary<string, bool> Foldouts = new Dictionary<string, bool>();
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnGUI()
     {
+        test = GetProp<string>(test, "test");
+
+        EditorGUILayout.LabelField(test);
+
         var audience = new Audience
         {
             Players = new List<Player>(),
-
             Triggers = new List<string>(),
 
             HowToSpeakWithPlayers = ""
@@ -52,7 +49,7 @@ public class ProjectPicker : MonoBehaviour
             Channels = new List<Channel>(),
         };
 
-        Project = new Project
+        Project Project = new Project
         {
             WhatsFun = new List<string> { "Fun" },
             WhatFeelingsDoYouCreate = new List<Emotion> { new Emotion() },
@@ -73,7 +70,40 @@ public class ProjectPicker : MonoBehaviour
         for (int i = 0; i < myPropertyInfo.Length; i++)
         {
             var info = myPropertyInfo[i];
-            Debug.Log(info.Name.ToString());
+            var name = info.Name.ToString();
+
+            if (!Foldouts.ContainsKey(info.Name))
+                Foldouts[info.Name] = false;
+
+            Foldouts[info.Name] = EditorGUILayout.Foldout(Foldouts[info.Name], name, true);
+
+            if (Foldouts[info.Name])
+                GUILayout.Label(name);
         }
+    }
+
+    //public void RenderProp<T>(T prop)
+    //{
+    //    if ()
+    //}
+
+    //public string GetProp<T>(T str)
+    //{
+    //    T newT = new T();
+
+    //    foreach (var p in typeof(T).GetFields())
+    //    {
+    //        if (p is string)
+    //        {
+
+    //        }
+    //    }
+    //}
+
+    public string GetProp<T>(string str, string label)
+    {
+        GUILayout.Label(label);
+
+        return GUILayout.TextField(str, 25);
     }
 }
