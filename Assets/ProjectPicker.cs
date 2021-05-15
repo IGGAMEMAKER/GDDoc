@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ public class ProjectPicker : MonoBehaviour
         {
             Players = new List<Player>(),
 
-            CTAs = new List<string>(),
+            Triggers = new List<string>(),
 
             HowToSpeakWithPlayers = ""
         };
@@ -22,6 +21,11 @@ public class ProjectPicker : MonoBehaviour
         {
             Atmosphere = "Atmosphere",
             Challenge = new List<string>(),
+
+            Decisions = new List<Decision>(),
+            Goals = new List<string>(),
+            Playstyles = new List<string>(),
+            Roles = new List<string>()
         };
 
         var success = new Success
@@ -49,7 +53,19 @@ public class ProjectPicker : MonoBehaviour
             Idea = idea,
             Release = release,
             WhyThisWillWork = success,
+
             Risks = new List<Risk>(),
         };
+
+        // Get the properties of 'Type' class object.
+        var myPropertyInfo = typeof(Project).GetFields(); // Type.GetType("Project").GetProperties();
+
+        Debug.Log("Properties of Project are: " + myPropertyInfo.Length);
+
+        for (int i = 0; i < myPropertyInfo.Length; i++)
+        {
+            var info = myPropertyInfo[i];
+            Debug.Log(info.Name.ToString());
+        }
     }
 }

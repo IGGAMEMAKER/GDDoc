@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class Project
+public class Project // project = product + players + time + money
 {
     // Urge
     public List<Emotion> WhatFeelingsDoYouCreate;
@@ -31,6 +31,6 @@ public class Success
     public string WhyPeopleCantIgnoreIt; // absurds, CTAs (clickbaits ------ calm stuff)
     public string WhyPeopleWillBuyIt; // followed from the start, were engaged (played betas, gave feedback, spoke with dev)
     public string WhyPeopleWillRecommendIt;
-    // Give > Promise
-    public string WhyThisWillWork; // cause people with traits X will get the ability and place to do Y
+    
+    public string WhyThisWillWork; // Give > Promise // cause people with traits X will get the ability and place to do Y
 }

@@ -17,7 +17,7 @@ public class Audience
     public string HoldPlayers;
 
     // Understand what is it => Know details
-    public List<string> CTAs;
+    public List<string> Triggers;
 
     // MARKETING MATERIALS:
     // * SCREENSHOTS
