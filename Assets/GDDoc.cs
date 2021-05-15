@@ -82,7 +82,7 @@ public class GDDoc : EditorWindow
         //RenderParameter(idea, ref depth);
 
         //GUILayout.Space(25);
-        RenderParameter(project, ref depth, false);
+        RenderParameter(project, ref depth);
         //RenderParameter(typeof(Project), ref depth);
 
 
@@ -92,16 +92,11 @@ public class GDDoc : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
-    public void RenderParameter<T>(T parameter, ref int depth, bool nested)
+    public void RenderParameter<T>(T parameter, ref int depth)
     {
-        if (nested)
-        {
-            GUILayout.Label("Nested");
-        }
-
         var myPropertyInfo = typeof(T).GetFields();
 
-        Debug.Log("CHECKING " + parameter + " " + myPropertyInfo.Length);
+        Debug.Log($"CHECKING ({myPropertyInfo.Length}) {parameter.ToString()}");
 
         for (int i = 0; i < myPropertyInfo.Length; i++)
         {
@@ -110,26 +105,17 @@ public class GDDoc : EditorWindow
             depth++;
 
             var name = info.Name.ToString();
-            var fullName = depth + info.Name;
 
-            if (!Foldouts.ContainsKey(fullName))
-                Foldouts[fullName] = false;
+            EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
 
-            EditorGUILayout.BeginFoldoutHeaderGroup(true, name);
+            GUILayout.Label($"{name} ({info.FieldType})");
 
-            if (Foldouts[fullName] || true)
-            {
-                GUILayout.Label($"{name} ({info.FieldType})");
+            var value = GetPropValue(parameter, name);
+            var jsonString = JsonUtility.ToJson(value, true);
 
-                var value = GetPropValue(parameter, info.Name);
+            Debug.Log(jsonString);
 
-                if (info.FieldType.ToString().Contains("Success"))
-                {
-                    GUILayout.Label("SUCCESS " + ((Success)value).WhyPeopleCantIgnoreIt.Length);
-                }
-
-                RenderParameter(value, ref depth, true);
-            }
+            RenderParameter(value, ref depth);
 
             EditorGUILayout.EndFoldoutHeaderGroup();
         }
