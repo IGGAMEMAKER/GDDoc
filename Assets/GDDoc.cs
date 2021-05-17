@@ -17,7 +17,10 @@ public class GDDoc : EditorWindow
     {
         var community = new Community
         {
-            Players = new List<Player> { new Player { Name = "Name", Description = "asda" }  },
+            Players = new List<Player> {
+                new Player { Name = "Gamedevs", Description = "" },
+                new Player { Name = "Programmers", Description = "" },
+            },
             Triggers = new List<string>(), // can take from idea or make random clickbaits
 
             HowToSpeakWithPlayers = ""
@@ -87,6 +90,9 @@ public class GDDoc : EditorWindow
         if (GUILayout.Button("Why Project Will succeed"))
             Tier = 3;
 
+        if (GUILayout.Button("ALL"))
+            Tier = 4;
+
         Space(25);
 
         switch (Tier)
@@ -108,6 +114,11 @@ public class GDDoc : EditorWindow
 
             case 3:
                 BigLabel("Success");
+                RenderParameter(project.WhyThisWillWork, ref counter, 1);
+                break;
+
+            case 4:
+                BigLabel("PROJECT");
                 RenderParameter(project.WhyThisWillWork, ref counter, 1);
                 break;
         }
