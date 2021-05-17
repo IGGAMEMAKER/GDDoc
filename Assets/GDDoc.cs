@@ -133,7 +133,7 @@ public class GDDoc : EditorWindow
             var name = info.Name.ToString();
             var fieldType = info.FieldType;
 
-            //EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
+            EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
 
             var value = GetPropValue(parameter, name);
             var jsonString = JsonUtility.ToJson(value, true);
@@ -144,8 +144,10 @@ public class GDDoc : EditorWindow
 
             RenderParameter(value, ref counter, depth + 1);
 
-            //EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.EndFoldoutHeaderGroup();
         }
+
+        GUILayout.Space(15);
     }
 
     static T GetJSONDataFromFile<T>(string jsonString)
