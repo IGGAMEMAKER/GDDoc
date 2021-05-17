@@ -56,7 +56,7 @@ public partial class GDDoc : EditorWindow
 
         var fun = new List<string> { "Fun" };
 
-        var emotions = new List<Emotion> { new Emotion() };
+        var emotions = new List<Emotion> { new Emotion { Name = "Manager" } };
 
         var risks = new List<Risk>();
 
@@ -123,8 +123,6 @@ public partial class GDDoc : EditorWindow
                 RenderParameter(project, ref counter, 1);
                 break;
         }
-
-        //RenderParameter(project, ref counter, 1);
 
         Space(25);
 
