@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 // https://stackoverflow.com/questions/55407676/how-can-i-draw-a-list-and-all-its-items-in-inspector-editor-script
-https://stackoverflow.com/questions/2837063/cast-object-to-generic-list
+// https://stackoverflow.com/questions/2837063/cast-object-to-generic-list
 
 public partial class GDDoc : EditorWindow
 {
