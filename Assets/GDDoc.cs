@@ -74,25 +74,10 @@ public class GDDoc : EditorWindow
         scrollView = EditorGUILayout.BeginScrollView(scrollView);
 
         int depth = 0;
-        //RenderParameter(idea, ref depth);
 
-        //GUILayout.Space(25);
-        //Describe(GetPropValue(project, "Release"));
-        //Describe(project.Release);
+        //GUILayout.Label("Default object count: " + typeof(object).GetFields().Length);
 
         RenderParameter(project, ref depth);
-        GUILayout.Space(25);
-
-        RenderParameter(project.Release, ref depth);
-        //RenderParameter(typeof(Project), ref depth);
-
-
-        //GUILayout.Label("To JSON: " + JsonUtility.ToJson(project.Release, true));
-        //GUILayout.Label("Prop: " + JsonUtility.ToJson(GetProperty(project, "Release"), true));
-
-
-        GUILayout.Space(25);
-        //RenderParameter(typeof(Project), ref depth);
 
         EditorGUILayout.EndScrollView();
     }
@@ -104,32 +89,63 @@ public class GDDoc : EditorWindow
         GUILayout.Label($"{name} ({value.GetType()}) \n{jsonString}");
     }
 
-    public void RenderParameter<T>(T parameter, ref int depth)
+    void Label(string label)
     {
-        var myPropertyInfo = typeof(T).GetFields();
+        var boldText = new GUIStyle();
+        boldText.richText = true;
+
+        GUILayout.Label(label, boldText);
+    }
+
+    public void RenderParameter<T>(T parameter, ref int counter)
+    {
+        if (parameter == null)
+            return;
+
+        var parameterType = parameter.GetType();
+        //var myPropertyInfo = typeof(T).GetFields();
+
+        var myPropertyInfo = parameterType.GetFields();
 
         Debug.Log($"CHECKING ({myPropertyInfo.Length}) {parameter.ToString()}");
+
+        if (parameterType.IsEquivalentTo(typeof(string)))
+        {
+            //Label("String: " + parameter.ToString());
+            GetProp(parameter.ToString(), parameter.GetType().Name);
+            return;
+        }
+
+        if (parameterType.IsEquivalentTo(typeof(List<T>)))
+        {
+            Label("List of " + parameterType.ToString());
+            return;
+        }
 
         for (int i = 0; i < myPropertyInfo.Length; i++)
         {
             var info = myPropertyInfo[i];
 
-            depth++;
+            counter++;
+
+            if (counter > 40)
+                break;
 
             var name = info.Name.ToString();
             var fieldType = info.FieldType;
 
-            EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
+            //EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
 
 
             var value = GetPropValue(parameter, name);
             var jsonString = JsonUtility.ToJson(value, true);
 
-            GUILayout.Label($"{name} ({fieldType}, {value.GetType()}) \n{jsonString}");
+            Label($"<b>{name}</b> ({fieldType})");
+            //Label($"{name} ({fieldType})\n{jsonString}");
 
-            RenderParameter(value, ref depth);
+            RenderParameter(value, ref counter);
 
-            EditorGUILayout.EndFoldoutHeaderGroup();
+            //EditorGUILayout.EndFoldoutHeaderGroup();
         }
     }
 
