@@ -16,7 +16,7 @@ public class ProjectPicker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var audience = new Audience
+        var audience = new Community
         {
             Players = new List<Player>(),
 
@@ -57,7 +57,7 @@ public class ProjectPicker : MonoBehaviour
             WhatsFun = new List<string> { "Fun" },
             WhatFeelingsDoYouCreate = new List<Emotion> { new Emotion() },
 
-            Audience = audience,
+            Community = audience,
             Idea = idea,
             Release = release,
             WhyThisWillWork = success,

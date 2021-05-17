@@ -7,7 +7,7 @@ public class Project // project = product + players + time + money
     public List<string> WhatsFun;
 
     public Idea Idea;
-    public Audience Audience;
+    public Community Community;
 
     public Success WhyThisWillWork;
     public List<Risk> Risks;

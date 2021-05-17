@@ -6,7 +6,7 @@ public class Player
     public string Description;
 }
 
-public class Audience
+public class Community
 {
     public List<Player> Players;
 

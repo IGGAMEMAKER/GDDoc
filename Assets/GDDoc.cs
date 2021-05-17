@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class GDDoc : EditorWindow
 
     private void OnGUI()
     {
-        var audience = new Audience
+        var audience = new Community
         {
             Players = new List<Player> { new Player { Name = "Name", Description = "asda" }  },
             Triggers = new List<string>(), // can take from idea or make random clickbaits
@@ -47,47 +48,44 @@ public class GDDoc : EditorWindow
             Channels = new List<Channel>(),
         };
 
+        var fun = new List<string> { "Fun" };
+
+        var emotions = new List<Emotion> { new Emotion() };
+
+        var risks = new List<Risk>();
+
         Project project = new Project
         {
-            WhatsFun = new List<string> { "Fun" },
-            WhatFeelingsDoYouCreate = new List<Emotion> { new Emotion() },
+            WhatsFun = fun,
+            WhatFeelingsDoYouCreate = emotions,
 
-            Audience = audience,
+            Community = audience,
             Idea = idea,
             Release = release,
             WhyThisWillWork = success,
 
-            Risks = new List<Risk>(),
+            Risks = risks,
         };
 
         scrollView = EditorGUILayout.BeginScrollView(scrollView);
 
         int counter = 0;
 
-        GUILayout.Space(25);
+        Space(25);
 
-        RenderParameter(project, ref counter, 1);
+        RenderParameter(project.WhatFeelingsDoYouCreate, ref counter, 1);
+        RenderParameter(project.WhatsFun, ref counter, 1);
+        RenderParameter(project.WhyThisWillWork, ref counter, 1);
 
-        GUILayout.Space(25);
+        RenderParameter(project.Community, ref counter, 1);
+        RenderParameter(project.Idea, ref counter, 1);
+
+        RenderParameter(project.Release, ref counter, 1);
+        RenderParameter(project.Risks, ref counter, 1);
+
+        Space(25);
 
         EditorGUILayout.EndScrollView();
-    }
-
-    void Describe(object value)
-    {
-        var jsonString = JsonUtility.ToJson(value, true);
-
-        GUILayout.Label($"{name} ({value.GetType()}) \n{jsonString}");
-    }
-
-    void Label(string label, int indent = 0)
-    {
-        var boldText = new GUIStyle();
-        boldText.richText = true;
-
-        var indentation = new string(' ', indent * 4);
-
-        GUILayout.Label(indentation + label, boldText);
     }
 
     public void RenderParameter<T>(T parameter, ref int counter, int depth)
@@ -111,12 +109,17 @@ public class GDDoc : EditorWindow
         }
 
         // is List
-        //if (parameterType.IsEquivalentTo(typeof(List<T>)))
         if (parameter.ToString().Contains("System.Collections.Generic.List"))
         {
+            var enumerable = parameter as IEnumerable;
+
             Label("List", depth); //  + parameterType.ToString()
 
-            //foreach (var item in parameter)
+            foreach (var item in enumerable)
+            {
+                RenderParameter(item, ref counter, depth + 1);
+            }
+
             return;
         }
 
@@ -196,5 +199,28 @@ public class GDDoc : EditorWindow
         }
 
         return str;
+    }
+
+
+    void Describe(object value)
+    {
+        var jsonString = JsonUtility.ToJson(value, true);
+
+        GUILayout.Label($"{name} ({value.GetType()}) \n{jsonString}");
+    }
+
+    void Label(string label, int indent = 0)
+    {
+        var boldText = new GUIStyle();
+        boldText.richText = true;
+
+        var indentation = new string(' ', indent * 4);
+
+        GUILayout.Label(indentation + label, boldText);
+    }
+
+    void Space(int space = 15)
+    {
+        GUILayout.Space(space);
     }
 }
