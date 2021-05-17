@@ -40,7 +40,11 @@ public partial class GDDoc
             foreach (var item in enumerable)
             {
                 RenderParameter(item, ref counter, depth + 1);
+                Space(5);
             }
+
+            if (cnt != 0)
+                Space(20);
 
             return;
         }
@@ -64,12 +68,13 @@ public partial class GDDoc
             var name = info.Name.ToString();
             var value = GetField(parameter, name);
 
-            Label($"<b>{name}</b> ({GetPrettyFieldType(info.FieldType)})", depth);
+            //if (!IsString(info.FieldType))
+                Label($"<b>{name}</b> ({GetPrettyFieldType(info.FieldType)})", depth);
 
             RenderParameter(value, ref counter, depth + 1);
         }
 
-        Space(35);
+        Space(10);
     }
 
     static string GetPrettyFieldType(Type type)
@@ -108,8 +113,8 @@ public partial class GDDoc
 
     public string InputProperty(string str, string label, int depth = 0)
     {
-        Label(label, depth);
-
+        //Label(label, depth);
+        return EditorGUILayout.TextField(label, str);
         return GUILayout.TextField(str, 25);
     }
 }
