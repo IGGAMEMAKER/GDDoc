@@ -14,7 +14,7 @@ public class GDDoc : EditorWindow
     {
         var audience = new Audience
         {
-            Players = new List<Player>(),
+            Players = new List<Player> { new Player { Name = "Name", Description = "asda" }  },
             Triggers = new List<string>(), // can take from idea or make random clickbaits
 
             HowToSpeakWithPlayers = ""
@@ -115,6 +115,8 @@ public class GDDoc : EditorWindow
         if (parameter.ToString().Contains("System.Collections.Generic.List"))
         {
             Label("List", depth); //  + parameterType.ToString()
+
+            //foreach (var item in parameter)
             return;
         }
 
@@ -133,18 +135,18 @@ public class GDDoc : EditorWindow
             var name = info.Name.ToString();
             var fieldType = info.FieldType;
 
-            EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
+            //EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
 
-            var value = GetPropValue(parameter, name);
+            var value = GetField(parameter, name);
             var jsonString = JsonUtility.ToJson(value, true);
 
 
-            Label($"<b>{name}</b> ({fieldType})", depth);
+            Label($"<b>{counter} {name}</b> ({fieldType})", depth);
             //Label($"{name} ({fieldType})\n{jsonString}");
 
             RenderParameter(value, ref counter, depth + 1);
 
-            EditorGUILayout.EndFoldoutHeaderGroup();
+            //EditorGUILayout.EndFoldoutHeaderGroup();
         }
 
         GUILayout.Space(15);
@@ -167,22 +169,12 @@ public class GDDoc : EditorWindow
         return (T)Activator.CreateInstance(typeof(T));
     }
 
-    public static object GetPropValue(object src, string propName)
+    public static object GetField(object src, string propName)
     {
         // https://stackoverflow.com/questions/1196991/get-property-value-from-string-using-reflection
         //Debug.Log("Trying to get property " + propName + " from object " + src);
 
         var value = src.GetType().GetField(propName).GetValue(src);
-
-        return value;
-    }
-
-    public static object GetProperty(object src, string propName)
-    {
-        // https://stackoverflow.com/questions/1196991/get-property-value-from-string-using-reflection
-        //Debug.Log("Trying to get property " + propName + " from object " + src);
-
-        var value = src.GetType().GetProperty(propName).GetValue(src);
 
         return value;
     }
