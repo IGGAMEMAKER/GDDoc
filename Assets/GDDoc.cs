@@ -13,7 +13,7 @@ public class GDDoc : EditorWindow
 
     private void OnGUI()
     {
-        var audience = new Community
+        var community = new Community
         {
             Players = new List<Player> { new Player { Name = "Name", Description = "asda" }  },
             Triggers = new List<string>(), // can take from idea or make random clickbaits
@@ -59,7 +59,7 @@ public class GDDoc : EditorWindow
             WhatsFun = fun,
             WhatFeelingsDoYouCreate = emotions,
 
-            Community = audience,
+            Community = community,
             Idea = idea,
             Release = release,
             WhyThisWillWork = success,
@@ -73,15 +73,16 @@ public class GDDoc : EditorWindow
 
         Space(25);
 
-        RenderParameter(project.WhatFeelingsDoYouCreate, ref counter, 1);
-        RenderParameter(project.WhatsFun, ref counter, 1);
-        RenderParameter(project.WhyThisWillWork, ref counter, 1);
+        RenderParameter(project, ref counter, 1);
+        //RenderParameter(project.WhatFeelingsDoYouCreate, ref counter, 1);
+        //RenderParameter(project.WhatsFun, ref counter, 1);
+        //RenderParameter(project.WhyThisWillWork, ref counter, 1);
 
-        RenderParameter(project.Community, ref counter, 1);
-        RenderParameter(project.Idea, ref counter, 1);
+        //RenderParameter(project.Community, ref counter, 1);
+        //RenderParameter(project.Idea, ref counter, 1);
 
-        RenderParameter(project.Release, ref counter, 1);
-        RenderParameter(project.Risks, ref counter, 1);
+        //RenderParameter(project.Release, ref counter, 1);
+        //RenderParameter(project.Risks, ref counter, 1);
 
         Space(25);
 
@@ -94,7 +95,6 @@ public class GDDoc : EditorWindow
             return;
 
         var parameterType = parameter.GetType();
-        //var myPropertyInfo = typeof(T).GetFields();
 
         var myPropertyInfo = parameterType.GetFields();
 
@@ -113,7 +113,14 @@ public class GDDoc : EditorWindow
         {
             var enumerable = parameter as IEnumerable;
 
-            Label("List", depth); //  + parameterType.ToString()
+            int cnt = 0;
+            foreach (var item in enumerable)
+            {
+                if (cnt == 0)
+                    Label("List", depth); //  + parameterType.ToString()
+
+                cnt++;
+            }
 
             foreach (var item in enumerable)
             {
@@ -138,22 +145,36 @@ public class GDDoc : EditorWindow
             var name = info.Name.ToString();
             var fieldType = info.FieldType;
 
-            //EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
-
             var value = GetField(parameter, name);
             var jsonString = JsonUtility.ToJson(value, true);
 
 
-            Label($"<b>{counter} {name}</b> ({fieldType})", depth);
+            Label($"<b>{depth} {name}</b> ({GetPrettyFieldType(info)})", depth); // fieldType
             //Label($"{name} ({fieldType})\n{jsonString}");
 
             RenderParameter(value, ref counter, depth + 1);
-
-            //EditorGUILayout.EndFoldoutHeaderGroup();
         }
 
         GUILayout.Space(15);
     }
+
+    static string GetPrettyFieldType(object obj)
+    {
+        if (isString(obj.GetType()))
+        {
+            return "string";
+        }
+
+        if (isList(obj))
+        {
+            return "List";
+        }
+
+        return obj.GetType().ToString();
+    }
+
+    static bool isString(Type type) => type.IsEquivalentTo(typeof(string));
+    static bool isList(object type) => type.ToString().Contains("System.Collections.Generic.List");
 
     static T GetJSONDataFromFile<T>(string jsonString)
     {
