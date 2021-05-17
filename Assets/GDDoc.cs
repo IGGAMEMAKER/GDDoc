@@ -11,6 +11,8 @@ public class GDDoc : EditorWindow
     public Dictionary<string, bool> Foldouts = new Dictionary<string, bool>();
     public Vector2 scrollView = Vector2.zero;
 
+    public int Tier = 0;
+
     private void OnGUI()
     {
         var community = new Community
@@ -73,16 +75,44 @@ public class GDDoc : EditorWindow
 
         Space(25);
 
-        RenderParameter(project, ref counter, 1);
-        //RenderParameter(project.WhatFeelingsDoYouCreate, ref counter, 1);
-        //RenderParameter(project.WhatsFun, ref counter, 1);
-        //RenderParameter(project.WhyThisWillWork, ref counter, 1);
+        if (GUILayout.Button("Community"))
+            Tier = 0;
 
-        //RenderParameter(project.Community, ref counter, 1);
-        //RenderParameter(project.Idea, ref counter, 1);
+        if (GUILayout.Button("Feelings"))
+            Tier = 1;
 
-        //RenderParameter(project.Release, ref counter, 1);
-        //RenderParameter(project.Risks, ref counter, 1);
+        if (GUILayout.Button("Fun"))
+            Tier = 2;
+
+        if (GUILayout.Button("Why Project Will succeed"))
+            Tier = 3;
+
+        Space(25);
+
+        switch (Tier)
+        {
+            case 0:
+                BigLabel("Community");
+                RenderParameter(project.Community, ref counter, 1);
+                break;
+
+            case 1:
+                BigLabel("Feelings");
+                RenderParameter(project.WhatFeelingsDoYouCreate, ref counter, 1);
+                break;
+
+            case 2:
+                BigLabel("Fun");
+                RenderParameter(project.WhatsFun, ref counter, 1);
+                break;
+
+            case 3:
+                BigLabel("Success");
+                RenderParameter(project.WhyThisWillWork, ref counter, 1);
+                break;
+        }
+
+        //RenderParameter(project, ref counter, 1);
 
         Space(25);
 
@@ -96,20 +126,16 @@ public class GDDoc : EditorWindow
 
         var parameterType = parameter.GetType();
 
-        var myPropertyInfo = parameterType.GetFields();
-
-        Debug.Log($"CHECKING ({myPropertyInfo.Length}) {parameter.ToString()}"); // name=<b>{parameterType.Name}</b>
-
-        // is string
-        if (parameterType.IsEquivalentTo(typeof(string)))
+        // string
+        if (IsString(parameterType))
         {
-            //Label("String: " + parameter.ToString());
             InputProperty(parameter.ToString(), "", depth); // parameter.GetType().Name
+
             return;
         }
 
-        // is List
-        if (parameter.ToString().Contains("System.Collections.Generic.List"))
+        // list
+        if (IsList(parameter))
         {
             var enumerable = parameter as IEnumerable;
 
@@ -130,27 +156,26 @@ public class GDDoc : EditorWindow
             return;
         }
 
-        // is Dictionary
+        // dictionary
+        if (IsDictionary(parameter))
+        {
+            //Label("Dictionary", depth);
 
-        // is Complex type
+            return;
+        }
+
+        // complex type
+        var myPropertyInfo = parameterType.GetFields();
         for (int i = 0; i < myPropertyInfo.Length; i++)
         {
             var info = myPropertyInfo[i];
 
             counter++;
 
-            if (counter > 540)
-                break;
-
             var name = info.Name.ToString();
-            var fieldType = info.FieldType;
-
             var value = GetField(parameter, name);
-            var jsonString = JsonUtility.ToJson(value, true);
 
-
-            Label($"<b>{depth} {name}</b> ({GetPrettyFieldType(info)})", depth); // fieldType
-            //Label($"{name} ({fieldType})\n{jsonString}");
+            Label($"<b>{depth} {name}</b> ({GetPrettyFieldType(info.FieldType)})", depth);
 
             RenderParameter(value, ref counter, depth + 1);
         }
@@ -158,40 +183,29 @@ public class GDDoc : EditorWindow
         GUILayout.Space(15);
     }
 
-    static string GetPrettyFieldType(object obj)
+    static string GetPrettyFieldType(Type type)
     {
-        if (isString(obj.GetType()))
+        if (type == typeof(string))
         {
             return "string";
         }
 
-        if (isList(obj))
+        if (IsDictionary(type))
+        {
+            return "Dictionary";
+        }
+
+        if (IsList(type))
         {
             return "List";
         }
 
-        return obj.GetType().ToString();
+        return type.ToString();
     }
 
-    static bool isString(Type type) => type.IsEquivalentTo(typeof(string));
-    static bool isList(object type) => type.ToString().Contains("System.Collections.Generic.List");
-
-    static T GetJSONDataFromFile<T>(string jsonString)
-    {
-        try
-        {
-            var obj = JsonUtility.FromJson<T>(jsonString);
-
-            if (obj != null)
-                return obj;
-        }
-        catch
-        {
-            // This is handled in GetCountableAssetsFromFile function
-        }
-
-        return (T)Activator.CreateInstance(typeof(T));
-    }
+    static bool IsString(Type type) => type.IsEquivalentTo(typeof(string));
+    static bool IsList(object type) => type.ToString().Contains("System.Collections.Generic.List");
+    static bool IsDictionary(object type) => type.ToString().Contains("System.Collections.Generic.Dictionary");
 
     public static object GetField(object src, string propName)
     {
@@ -210,17 +224,6 @@ public class GDDoc : EditorWindow
         return GUILayout.TextField(str, 25);
     }
 
-    public List<string> GetProp<T>(List<string> str, string label)
-    {
-        GUILayout.Label(label);
-
-        for (var i = 0; i < str.Count; i++)
-        {
-            InputProperty(str[i], "#" + i);
-        }
-
-        return str;
-    }
 
 
     void Describe(object value)
@@ -238,6 +241,17 @@ public class GDDoc : EditorWindow
         var indentation = new string(' ', indent * 4);
 
         GUILayout.Label(indentation + label, boldText);
+    }
+
+    void BigLabel(string label, int indent = 0)
+    {
+        var boldText = new GUIStyle();
+        boldText.richText = true;
+        boldText.fontSize = 42;
+
+        var indentation = new string(' ', indent * 4);
+
+        GUILayout.Label($"<b>{indentation + label}</b>", boldText);
     }
 
     void Space(int space = 15)
