@@ -60,24 +60,15 @@ public class GDDoc : EditorWindow
             Risks = new List<Risk>(),
         };
 
-        //var myPropertyInfo = typeof(Project).GetFields();
-
-        ////Debug.Log("Properties of Project are: " + myPropertyInfo.Length);
-
-        //for (int i = 0; i < myPropertyInfo.Length; i++)
-        //{
-        //    var info = myPropertyInfo[i];
-
-        //    RenderFieldInfo(info, "");
-        //}
-
         scrollView = EditorGUILayout.BeginScrollView(scrollView);
 
-        int depth = 0;
+        int counter = 0;
 
-        //GUILayout.Label("Default object count: " + typeof(object).GetFields().Length);
+        GUILayout.Space(25);
 
-        RenderParameter(project, ref depth);
+        RenderParameter(project, ref counter, 1);
+
+        GUILayout.Space(25);
 
         EditorGUILayout.EndScrollView();
     }
@@ -89,15 +80,17 @@ public class GDDoc : EditorWindow
         GUILayout.Label($"{name} ({value.GetType()}) \n{jsonString}");
     }
 
-    void Label(string label)
+    void Label(string label, int indent = 0)
     {
         var boldText = new GUIStyle();
         boldText.richText = true;
 
-        GUILayout.Label(label, boldText);
+        var indentation = new string(' ', indent * 4);
+
+        GUILayout.Label(indentation + label, boldText);
     }
 
-    public void RenderParameter<T>(T parameter, ref int counter)
+    public void RenderParameter<T>(T parameter, ref int counter, int depth)
     {
         if (parameter == null)
             return;
@@ -107,28 +100,34 @@ public class GDDoc : EditorWindow
 
         var myPropertyInfo = parameterType.GetFields();
 
-        Debug.Log($"CHECKING ({myPropertyInfo.Length}) {parameter.ToString()}");
+        Debug.Log($"CHECKING ({myPropertyInfo.Length}) {parameter.ToString()}"); // name=<b>{parameterType.Name}</b>
 
+        // is string
         if (parameterType.IsEquivalentTo(typeof(string)))
         {
             //Label("String: " + parameter.ToString());
-            GetProp(parameter.ToString(), parameter.GetType().Name);
+            InputProperty(parameter.ToString(), "", depth); // parameter.GetType().Name
             return;
         }
 
-        if (parameterType.IsEquivalentTo(typeof(List<T>)))
+        // is List
+        //if (parameterType.IsEquivalentTo(typeof(List<T>)))
+        if (parameter.ToString().Contains("System.Collections.Generic.List"))
         {
-            Label("List of " + parameterType.ToString());
+            Label("List", depth); //  + parameterType.ToString()
             return;
         }
 
+        // is Dictionary
+
+        // is Complex type
         for (int i = 0; i < myPropertyInfo.Length; i++)
         {
             var info = myPropertyInfo[i];
 
             counter++;
 
-            if (counter > 40)
+            if (counter > 540)
                 break;
 
             var name = info.Name.ToString();
@@ -136,14 +135,14 @@ public class GDDoc : EditorWindow
 
             //EditorGUILayout.BeginFoldoutHeaderGroup(true, $"{name} ({myPropertyInfo.Length})");
 
-
             var value = GetPropValue(parameter, name);
             var jsonString = JsonUtility.ToJson(value, true);
 
-            Label($"<b>{name}</b> ({fieldType})");
+
+            Label($"<b>{name}</b> ({fieldType})", depth);
             //Label($"{name} ({fieldType})\n{jsonString}");
 
-            RenderParameter(value, ref counter);
+            RenderParameter(value, ref counter, depth + 1);
 
             //EditorGUILayout.EndFoldoutHeaderGroup();
         }
@@ -169,7 +168,7 @@ public class GDDoc : EditorWindow
     public static object GetPropValue(object src, string propName)
     {
         // https://stackoverflow.com/questions/1196991/get-property-value-from-string-using-reflection
-        Debug.Log("Trying to get property " + propName + " from object " + src);
+        //Debug.Log("Trying to get property " + propName + " from object " + src);
 
         var value = src.GetType().GetField(propName).GetValue(src);
 
@@ -186,9 +185,9 @@ public class GDDoc : EditorWindow
         return value;
     }
 
-    public string GetProp(string str, string label)
+    public string InputProperty(string str, string label, int depth = 0)
     {
-        GUILayout.Label(label);
+        Label(label, depth);
 
         return GUILayout.TextField(str, 25);
     }
@@ -199,7 +198,7 @@ public class GDDoc : EditorWindow
 
         for (var i = 0; i < str.Count; i++)
         {
-            GetProp(str[i], "#" + i);
+            InputProperty(str[i], "#" + i);
         }
 
         return str;
