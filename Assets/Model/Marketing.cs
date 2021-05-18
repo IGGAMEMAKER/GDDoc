@@ -18,6 +18,7 @@ public class Community
 
     // Understand what is it => Know details
     public List<string> Triggers;
+    public List<string> UniqueTriggers; // What will only be associated with you
 
     // MARKETING MATERIALS:
     // * SCREENSHOTS

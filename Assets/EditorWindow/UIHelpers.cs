@@ -34,7 +34,6 @@ public partial class GDDoc
         var indentation = new string(' ', indent * 4);
 
         GUILayout.Label($"<b>{indentation + label}</b>", boldText);
-        InputProperty("", "Unfocus");
     }
 
     void Space(int space = 15)

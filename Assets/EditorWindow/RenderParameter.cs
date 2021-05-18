@@ -5,7 +5,7 @@ using System.Collections;
 
 public partial class GDDoc
 {
-    public void RenderParameter<T>(T parameter, ref int counter, int depth, string propertyName = "")
+    public void RenderParameter<T>(T parameter, ref int counter, int depth = 1, string propertyName = "")
     {
         if (parameter == null)
             return;

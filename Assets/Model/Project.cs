@@ -17,6 +17,10 @@ public class Project // project = product + players + time + money
 
 public class Idea
 {
+    public string Description; // 1 Sentence
+    public string DescriptionParagraph; // 1 Paragraph
+    public string DescriptionStore; // Big description
+
     public List<string> Goals;
     public List<string> Challenge; // tough, but achievable
     public List<string> Roles;

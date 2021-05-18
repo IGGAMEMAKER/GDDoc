@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,69 +14,25 @@ public partial class GDDoc : EditorWindow
     public Vector2 scrollView = Vector2.zero;
 
     public int Tier = 0;
+    public int Macro = 0;
+
+    int counter = 0;
 
     private void OnGUI()
     {
-        var community = new Community
-        {
-            Players = new List<Player> {
-                new Player { Name = "Gamedevs", Description = "" },
-                new Player { Name = "Programmers", Description = "" },
-            },
-            Triggers = new List<string>(), // can take from idea or make random clickbaits
-
-            HowToSpeakWithPlayers = ""
-        };
-
-        var idea = new Idea
-        {
-            Atmosphere = "Atmosphere",
-
-            Decisions = new List<Decision>(),
-            Playstyles = new List<string>(),
-            Challenge = new List<string>(),
-            Goals = new List<string>(),
-            Roles = new List<string>()
-        };
-
-        var success = new Success
-        {
-            WhyPeopleCantIgnoreIt = "",
-            WhyPeopleWillBuyIt = "",
-            WhyPeopleWillRecommendIt = "",
-            WhyThisWillWork = ""
-        };
-
-        var release = new Release
-        {
-            Iterations = new List<Iteration>(),
-            QuantityMetrics = new Dictionary<string, int>(),
-
-            Channels = new List<Channel>(),
-        };
-
-        var fun = new List<string> { "Fun" };
-
-        var emotions = new List<Emotion> { new Emotion { Name = "Manager" } };
-
-        var risks = new List<Risk>();
-
-        Project project = new Project
-        {
-            WhatsFun = fun,
-            WhatFeelingsDoYouCreate = emotions,
-
-            Community = community,
-            Idea = idea,
-            Release = release,
-            WhyThisWillWork = success,
-
-            Risks = risks,
-        };
+        Project project = GetProject();
 
         scrollView = EditorGUILayout.BeginScrollView(scrollView);
 
-        int counter = 0;
+        counter = 0;
+
+        Space(25);
+
+        GUILayout.BeginHorizontal();
+
+        Macro = GUILayout.SelectionGrid(Macro, new string[] { "Macro", "Risks", "Gameplay", "Micro", "All" }, 5);
+
+        GUILayout.EndHorizontal();
 
         Space(25);
 
@@ -96,35 +53,70 @@ public partial class GDDoc : EditorWindow
 
         Space(25);
 
-        switch (Tier)
+        switch (Tier * 20)
         {
             case 0:
                 BigLabel("Community");
-                RenderParameter(project.Community, ref counter, 1);
+                RenderParameter(project.Community.Players.Select(p => p.Name).ToList(), ref counter);
                 break;
 
             case 1:
                 BigLabel("Feelings");
-                RenderParameter(project.WhatFeelingsDoYouCreate, ref counter, 1);
+                RenderParameter(project.WhatFeelingsDoYouCreate, ref counter);
                 break;
 
             case 2:
                 BigLabel("Fun");
-                RenderParameter(project.WhatsFun, ref counter, 1);
+                RenderParameter(project.WhatsFun, ref counter);
                 break;
 
             case 3:
                 BigLabel("Success");
-                RenderParameter(project.WhyThisWillWork, ref counter, 1);
+                RenderParameter(project.WhyThisWillWork, ref counter);
                 break;
 
             case 4:
                 BigLabel("PROJECT");
-                RenderParameter(project, ref counter, 1);
+                RenderParameter(project, ref counter);
                 break;
         }
 
+        switch (Macro)
+        {
+            case 0:
+                BigLabel("MACRO LEVEL");
+                RenderParameter(project.Idea.Description, ref counter);
+                RenderParameter(project.Idea.DescriptionParagraph, ref counter);
+
+                RenderParameter(project.Community.Players.Select(p => p.Name).ToList(), ref counter);
+                RenderParameter(project.Community.Triggers, ref counter);
+
+                break;
+
+            case 1:
+                BigLabel("RISKS");
+
+                RenderParameter(project.WhyThisWillWork, ref counter);
+                RenderParameter(project.Risks, ref counter);
+                break;
+
+            case 2:
+                BigLabel("GAMEPLAY");
+
+                RenderParameter(project.Idea, ref counter);
+                RenderParameter(project.Risks, ref counter);
+                break;
+
+            case 4:
+                BigLabel("ALL");
+
+                RenderParameter(project, ref counter);
+                break;
+
+        }
+
         Space(25);
+        InputProperty("", "Unfocus");
 
         EditorGUILayout.EndScrollView();
     }
