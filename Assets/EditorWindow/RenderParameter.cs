@@ -1,75 +1,88 @@
 ﻿using System;
 using System.Collections;
+using System.Reflection;
 
 // https://stackoverflow.com/questions/55407676/how-can-i-draw-a-list-and-all-its-items-in-inspector-editor-script
 
 public partial class GDDoc
 {
-    public void RenderParameter<T>(T parameter, ref int counter, int depth = 1, string propertyName = "")
+    public void RenderParameter<T>(T parameter, string propertyName = "", int depth = 1)
     {
         if (parameter == null)
             return;
 
         var parameterType = parameter.GetType();
 
+        if (depth == 1 && IsComplexType(parameter))
+        {
+            Label($"{GetPrettyFieldType(parameter.GetType())}", depth);
+        }
+
         // string
         if (IsString(parameterType))
         {
             InputProperty(parameter.ToString(), propertyName, depth); // parameter.GetType().Name
-
             return;
         }
 
         // list
         if (IsList(parameter))
         {
-            var enumerable = parameter as IEnumerable;
-
-            int cnt = 0;
-            foreach (var item in enumerable)
-                cnt++;
-
-            if (cnt > 0)
-                Label($"List ({cnt})", depth); //  + parameterType.ToString()
-
-            foreach (var item in enumerable)
-            {
-                RenderParameter(item, ref counter, depth + 1, item.ToString());
-                Space(5);
-            }
-
-            if (cnt != 0)
-                Space(20);
-
+            RenderList(parameter, depth);
             return;
         }
 
         // dictionary
         if (IsDictionary(parameter))
         {
-            //Label("Dictionary", depth);
-
+            Label("Dictionary", depth);
             return;
         }
 
         // complex type
-        var myPropertyInfo = parameterType.GetFields();
-        for (int i = 0; i < myPropertyInfo.Length; i++)
+        var fields = parameterType.GetFields();
+        for (int i = 0; i < fields.Length; i++)
         {
-            var info = myPropertyInfo[i];
+            var info = fields[i];
 
-            var name = info.Name.ToString();
-            var value = GetField(parameter, name);
-
-            if (!IsString(info.FieldType))
-                Label($"<b>{name}</b> ({GetPrettyFieldType(info.FieldType)})", depth);
-
-            counter++;
-
-            RenderParameter(value, ref counter, depth + 1, name);
+            RenderProperty(parameter, info, depth);
         }
 
         Space(10);
+    }
+
+    void RenderProperty<T>(T parameter, FieldInfo info, int depth = 1)
+    {
+        var name = info.Name.ToString();
+        var value = GetField(parameter, name);
+
+        if (!IsString(info.FieldType))
+            Label($"<b>{name}</b> ({GetPrettyFieldType(info.FieldType)})", depth);
+
+        counter++;
+
+        RenderParameter(value, name, depth + 1);
+    }
+
+    void RenderList<T>(T parameter, int depth = 1)
+    {
+        var enumerable = parameter as IEnumerable;
+
+        int cnt = 0;
+        foreach (var item in enumerable)
+            cnt++;
+
+        if (cnt > 0)
+            Label($"List ({cnt})", depth); //  + parameterType.ToString()
+
+        foreach (var item in enumerable)
+        {
+            RenderParameter(item, item.ToString(), depth + 1);
+            Space(1);
+        }
+
+        if (cnt != 0)
+            Space(20);
     }
 
     static string GetPrettyFieldType(Type type)
@@ -95,6 +108,8 @@ public partial class GDDoc
     static bool IsString(Type type) => type.IsEquivalentTo(typeof(string));
     static bool IsList(object type) => type.ToString().Contains("System.Collections.Generic.List");
     static bool IsDictionary(object type) => type.ToString().Contains("System.Collections.Generic.Dictionary");
+
+    static bool IsComplexType<T>(T obj) => !(IsString(obj.GetType()));
 
     public static object GetField(object src, string propName)
     {

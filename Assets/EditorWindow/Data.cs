@@ -27,6 +27,9 @@ public partial class GDDoc : EditorWindow
         var idea = new Idea
         {
             Atmosphere = "Atmosphere",
+            Description = "",
+            DescriptionParagraph = "",
+            DescriptionStore = "",
 
             Decisions = new List<Decision>(),
             Playstyles = new List<string>(),

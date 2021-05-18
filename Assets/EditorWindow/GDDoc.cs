@@ -36,48 +36,48 @@ public partial class GDDoc : EditorWindow
 
         Space(25);
 
-        if (GUILayout.Button("Community"))
-            Tier = 0;
+        //if (GUILayout.Button("Community"))
+        //    Tier = 0;
 
-        if (GUILayout.Button("Feelings"))
-            Tier = 1;
+        //if (GUILayout.Button("Feelings"))
+        //    Tier = 1;
 
-        if (GUILayout.Button("Fun"))
-            Tier = 2;
+        //if (GUILayout.Button("Fun"))
+        //    Tier = 2;
 
-        if (GUILayout.Button("Why Project Will succeed"))
-            Tier = 3;
+        //if (GUILayout.Button("Why Project Will succeed"))
+        //    Tier = 3;
 
-        if (GUILayout.Button("ALL"))
-            Tier = 4;
+        //if (GUILayout.Button("ALL"))
+        //    Tier = 4;
 
-        Space(25);
+        //Space(25);
 
-        switch (Tier * 20)
+        switch (Tier + 200)
         {
             case 0:
                 BigLabel("Community");
-                RenderParameter(project.Community.Players.Select(p => p.Name).ToList(), ref counter);
+                RenderParameter(project.Community.Players.Select(p => p.Name).ToList());
                 break;
 
             case 1:
                 BigLabel("Feelings");
-                RenderParameter(project.WhatFeelingsDoYouCreate, ref counter);
+                RenderParameter(project.WhatFeelingsDoYouCreate);
                 break;
 
             case 2:
                 BigLabel("Fun");
-                RenderParameter(project.WhatsFun, ref counter);
+                RenderParameter(project.WhatsFun);
                 break;
 
             case 3:
                 BigLabel("Success");
-                RenderParameter(project.WhyThisWillWork, ref counter);
+                RenderParameter(project.WhyThisWillWork);
                 break;
 
             case 4:
                 BigLabel("PROJECT");
-                RenderParameter(project, ref counter);
+                RenderParameter(project);
                 break;
         }
 
@@ -85,32 +85,35 @@ public partial class GDDoc : EditorWindow
         {
             case 0:
                 BigLabel("MACRO LEVEL");
-                RenderParameter(project.Idea.Description, ref counter);
-                RenderParameter(project.Idea.DescriptionParagraph, ref counter);
 
-                RenderParameter(project.Community.Players.Select(p => p.Name).ToList(), ref counter);
-                RenderParameter(project.Community.Triggers, ref counter);
+                Badge("What are you doing", 1);
+                RenderParameter(project.Idea.Description, "1 Sentence Descripion");
+                RenderParameter(project.Idea.DescriptionParagraph, "1 Paragraph Descripion");
+                Space();
+
+                Badge("Who will play that", 1);
+                RenderParameter(project.Community.Players.Select(p => p.Name).ToList());
+                RenderParameter(project.Community.Triggers);
 
                 break;
 
             case 1:
                 BigLabel("RISKS");
 
-                RenderParameter(project.WhyThisWillWork, ref counter);
-                RenderParameter(project.Risks, ref counter);
+                RenderParameter(project.WhyThisWillWork);
+                RenderParameter(project.Risks);
                 break;
 
             case 2:
                 BigLabel("GAMEPLAY");
 
-                RenderParameter(project.Idea, ref counter);
-                RenderParameter(project.Risks, ref counter);
+                RenderParameter(project.Idea);
                 break;
 
             case 4:
                 BigLabel("ALL");
 
-                RenderParameter(project, ref counter);
+                RenderParameter(project);
                 break;
 
         }

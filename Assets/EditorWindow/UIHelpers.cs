@@ -36,6 +36,17 @@ public partial class GDDoc
         GUILayout.Label($"<b>{indentation + label}</b>", boldText);
     }
 
+    void Badge(string label, int indent = 0)
+    {
+        var boldText = new GUIStyle();
+        boldText.richText = true;
+        boldText.fontSize = 24;
+
+        var indentation = new string(' ', indent * 4);
+
+        GUILayout.Label($"<b>{indentation + label}</b>", boldText);
+    }
+
     void Space(int space = 15)
     {
         GUILayout.Space(space);
