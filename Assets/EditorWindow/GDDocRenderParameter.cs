@@ -8,7 +8,7 @@ using UnityEngine;
 
 public partial class GDDoc
 {
-    public void RenderParameter<T>(T parameter, ref int counter, int depth)
+    public void RenderParameter<T>(T parameter, ref int counter, int depth, string propertyName = "")
     {
         if (parameter == null)
             return;
@@ -18,7 +18,7 @@ public partial class GDDoc
         // string
         if (IsString(parameterType))
         {
-            InputProperty(parameter.ToString(), "", depth); // parameter.GetType().Name
+            InputProperty(parameter.ToString(), propertyName, depth); // parameter.GetType().Name
 
             return;
         }
@@ -31,10 +31,12 @@ public partial class GDDoc
             int cnt = 0;
             foreach (var item in enumerable)
             {
-                if (cnt == 0)
-                    Label("List", depth); //  + parameterType.ToString()
-
                 cnt++;
+            }
+
+            if (cnt > 0)
+            {
+                Label($"List ({cnt})", depth); //  + parameterType.ToString()
             }
 
             foreach (var item in enumerable)
@@ -68,10 +70,10 @@ public partial class GDDoc
             var name = info.Name.ToString();
             var value = GetField(parameter, name);
 
-            //if (!IsString(info.FieldType))
+            if (!IsString(info.FieldType))
                 Label($"<b>{name}</b> ({GetPrettyFieldType(info.FieldType)})", depth);
 
-            RenderParameter(value, ref counter, depth + 1);
+            RenderParameter(value, ref counter, depth + 1, name);
         }
 
         Space(10);
@@ -109,12 +111,5 @@ public partial class GDDoc
         var value = src.GetType().GetField(propName).GetValue(src);
 
         return value;
-    }
-
-    public string InputProperty(string str, string label, int depth = 0)
-    {
-        //Label(label, depth);
-        return EditorGUILayout.TextField(label, str);
-        return GUILayout.TextField(str, 25);
     }
 }
