@@ -36,23 +36,6 @@ public partial class GDDoc : EditorWindow
 
         Space(25);
 
-        //if (GUILayout.Button("Community"))
-        //    Tier = 0;
-
-        //if (GUILayout.Button("Feelings"))
-        //    Tier = 1;
-
-        //if (GUILayout.Button("Fun"))
-        //    Tier = 2;
-
-        //if (GUILayout.Button("Why Project Will succeed"))
-        //    Tier = 3;
-
-        //if (GUILayout.Button("ALL"))
-        //    Tier = 4;
-
-        //Space(25);
-
         switch (Tier + 200)
         {
             case 0:
