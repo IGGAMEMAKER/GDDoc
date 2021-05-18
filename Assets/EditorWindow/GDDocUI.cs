@@ -34,6 +34,7 @@ public partial class GDDoc
         var indentation = new string(' ', indent * 4);
 
         GUILayout.Label($"<b>{indentation + label}</b>", boldText);
+        InputProperty("", "Unfocus");
     }
 
     void Space(int space = 15)
@@ -43,13 +44,13 @@ public partial class GDDoc
 
     public string InputProperty(string str, string label, int depth = 0)
     {
-        //var boldText = new GUIStyle();
+        var boldText = GUI.skin.textField;
         //boldText.richText = true;
 
         var indentation = new string(' ', depth * 4);
 
         //Label(label, depth);
-        return EditorGUILayout.TextField($"{indentation + label}", str);
+        return EditorGUILayout.TextField($"{indentation + label}", str, boldText);
         return GUILayout.TextField(str, 25);
     }
 }
