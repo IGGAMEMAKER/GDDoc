@@ -40,4 +40,16 @@ public partial class GDDoc
     {
         GUILayout.Space(space);
     }
+
+    public string InputProperty(string str, string label, int depth = 0)
+    {
+        //var boldText = new GUIStyle();
+        //boldText.richText = true;
+
+        var indentation = new string(' ', depth * 4);
+
+        //Label(label, depth);
+        return EditorGUILayout.TextField($"{indentation + label}", str);
+        return GUILayout.TextField(str, 25);
+    }
 }
