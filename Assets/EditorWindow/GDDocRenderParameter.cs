@@ -27,18 +27,14 @@ public partial class GDDoc
 
             int cnt = 0;
             foreach (var item in enumerable)
-            {
                 cnt++;
-            }
 
             if (cnt > 0)
-            {
                 Label($"List ({cnt})", depth); //  + parameterType.ToString()
-            }
 
             foreach (var item in enumerable)
             {
-                RenderParameter(item, ref counter, depth + 1);
+                RenderParameter(item, ref counter, depth + 1, item.ToString());
                 Space(5);
             }
 
@@ -62,13 +58,13 @@ public partial class GDDoc
         {
             var info = myPropertyInfo[i];
 
-            counter++;
-
             var name = info.Name.ToString();
             var value = GetField(parameter, name);
 
             if (!IsString(info.FieldType))
                 Label($"<b>{name}</b> ({GetPrettyFieldType(info.FieldType)})", depth);
+
+            counter++;
 
             RenderParameter(value, ref counter, depth + 1, name);
         }
