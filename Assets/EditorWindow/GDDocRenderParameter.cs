@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 
 // https://stackoverflow.com/questions/55407676/how-can-i-draw-a-list-and-all-its-items-in-inspector-editor-script
 
