@@ -14,7 +14,6 @@ public partial class GDDoc : EditorWindow
     public Vector2 scrollView = Vector2.zero;
 
     public int Tier = 0;
-    public int Macro = 0;
 
     int counter = 0;
 
@@ -30,75 +29,57 @@ public partial class GDDoc : EditorWindow
 
         GUILayout.BeginHorizontal();
 
-        Macro = GUILayout.SelectionGrid(Macro, new string[] { "Macro", "Risks", "Gameplay", "Micro", "All" }, 5);
+        var titles = new string[] { "Macro", "Success", "Gameplay", "Risks", "Iterations", "All" };
+        Tier = GUILayout.SelectionGrid(Tier, titles, titles.Length);
 
         GUILayout.EndHorizontal();
 
         Space(25);
 
-        switch (Tier + 200)
+        var title = titles[Tier].ToUpper();
+        BigLabel(title);
+
+        switch (Tier)
         {
             case 0:
-                BigLabel("Community");
-                RenderParameter(project.Community.Players.Select(p => p.Name).ToList());
+                Badge("What are you doing", 1);
+                RenderParameterIncludeOnly(project.Idea, "", 1, "Description", "DescriptionParagraph");
+                Space();
+
+                Badge("What is cool about your game");
+                RenderParameterIncludeOnly(project, "", 1, "WhatsFun", "WhatFeelingsDoYouCreate");
+
+                Badge("Who will play your game", 1);
+                RenderParameterIncludeOnly(project.Community.Players, "", 1, "Name");
+                RenderParameter(project.Community.Triggers);
+                Space();
+
                 break;
 
             case 1:
-                BigLabel("Feelings");
-                RenderParameter(project.WhatFeelingsDoYouCreate);
+                RenderParameter(project.WhyThisWillWork);
+
                 break;
 
             case 2:
-                BigLabel("Fun");
-                RenderParameter(project.WhatsFun);
+                RenderParameter(project.Idea);
+
                 break;
 
             case 3:
-                BigLabel("Success");
-                RenderParameter(project.WhyThisWillWork);
+                RenderParameterIncludeOnly(project, "", 1, "Risks");
+
                 break;
 
             case 4:
-                BigLabel("PROJECT");
+                RenderParameterIncludeOnly(project, "", 1, "Release");
+
+                break;
+
+            default:
                 RenderParameter(project);
-                break;
-        }
-
-        switch (Macro)
-        {
-            case 0:
-                BigLabel("MACRO LEVEL");
-
-                Badge("What are you doing", 1);
-                RenderParameter(project.Idea.Description, "1 Sentence Descripion");
-                RenderParameter(project.Idea.DescriptionParagraph, "1 Paragraph Descripion");
-                Space();
-
-                Badge("Who will play that", 1);
-                RenderParameter(project.Community.Players.Select(p => p.Name).ToList());
-                RenderParameter(project.Community.Triggers);
 
                 break;
-
-            case 1:
-                BigLabel("RISKS");
-
-                RenderParameter(project.WhyThisWillWork);
-                RenderParameter(project.Risks);
-                break;
-
-            case 2:
-                BigLabel("GAMEPLAY");
-
-                RenderParameter(project.Idea);
-                break;
-
-            case 4:
-                BigLabel("ALL");
-
-                RenderParameter(project);
-                break;
-
         }
 
         Space(25);

@@ -1,12 +1,28 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 // https://stackoverflow.com/questions/55407676/how-can-i-draw-a-list-and-all-its-items-in-inspector-editor-script
 
 public partial class GDDoc
 {
-    public void RenderParameter<T>(T parameter, string propertyName = "", int depth = 1)
+    public void RenderParameterIncludeOnly<T>(T parameter, string propertyName = "", int depth = 1, params string[] include)
+    {
+        RenderParameter(parameter, propertyName, depth, null, include.ToList());
+    }
+
+    public void RenderParameterExcludeOnly<T>(T parameter, string propertyName = "", int depth = 1, params string[] exclude)
+    {
+        RenderParameter(parameter, propertyName, depth, exclude.ToList(), null);
+    }
+
+
+    public void RenderParameter<T>(T parameter, 
+        string propertyName = "", int depth = 1,
+        List<string> exclude = null,
+        List<string> include = null)
     {
         if (parameter == null)
             return;
@@ -39,13 +55,20 @@ public partial class GDDoc
             return;
         }
 
+        bool includeAll = exclude == null && include == null;
+
         // complex type
         var fields = parameterType.GetFields();
         for (int i = 0; i < fields.Length; i++)
         {
             var info = fields[i];
 
-            RenderProperty(parameter, info, depth);
+            var name = info.Name.ToString();
+            bool forceInclude = include != null && include.Contains(name);
+            bool forceExclude = exclude != null && exclude.Contains(name);
+
+            if (includeAll || forceInclude && !forceExclude)
+                RenderProperty(parameter, info, depth);
         }
 
         Space(10);
