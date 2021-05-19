@@ -18,25 +18,24 @@ public partial class GDDoc : EditorWindow
             Triggers = new List<string>(), // can take from idea or make random clickbaits
             UniqueTriggers = new List<string>(),
 
-            GainPlayers = "",
-            HoldPlayers = "",
-
-            HowToSpeakWithPlayers = ""
+            GainPlayers = "Serious game about business, [Working on] Upcoming features, I don't know, what to do, Hard decisions",
+            HoldPlayers = "Polls, Upcoming features, Playing beta versions, (Mods)",
         };
 
         var idea = new Idea
         {
             Atmosphere = "Atmosphere",
-            Description = "",
-            DescriptionParagraph = "",
+            Description = "Corporation simulator",
+            DescriptionParagraph = "I'm making a game, where you need to create a software corporation",
             DescriptionStore = "",
 
             Decisions = new List<Decision>(),
             Playstyles = new List<string>(),
             Challenge = new List<string>(),
+            Actions = new List<string>(),
 
-            Goals = new List<string>(),
-            Roles = new List<string>()
+            Goals = new List<string> { "Create corporation", "Become TOP1 company", ""},
+            Roles = new List<string> { "Product Owner", "Businessman", "Investor" }
         };
 
         var success = new Success

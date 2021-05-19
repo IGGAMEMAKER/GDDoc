@@ -31,7 +31,7 @@ public partial class GDDoc
 
         if (depth == 1 && IsComplexType(parameter))
         {
-            Label($"{GetPrettyFieldType(parameter.GetType())}", depth);
+            Label($"<b>{GetPrettyFieldType(parameter.GetType())}</b>", depth);
         }
 
         // string

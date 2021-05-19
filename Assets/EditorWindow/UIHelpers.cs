@@ -36,7 +36,7 @@ public partial class GDDoc
         GUILayout.Label($"<b>{indentation + label}</b>", boldText);
     }
 
-    void Badge(string label, int indent = 0)
+    void Badge(string label, int indent = 1)
     {
         var boldText = new GUIStyle();
         boldText.richText = true;

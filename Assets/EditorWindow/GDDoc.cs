@@ -29,7 +29,7 @@ public partial class GDDoc : EditorWindow
 
         GUILayout.BeginHorizontal();
 
-        var titles = new string[] { "Macro", "Success", "Gameplay", "Risks", "Iterations", "All" };
+        var titles = new string[] { "Macro", "Success", "Gameplay", "Community Building", "Risks", "Iterations", "All" };
         Tier = GUILayout.SelectionGrid(Tier, titles, titles.Length);
 
         GUILayout.EndHorizontal();
@@ -67,11 +67,16 @@ public partial class GDDoc : EditorWindow
                 break;
 
             case 3:
-                RenderParameterIncludeOnly(project, "", 1, "Risks");
+                RenderParameterIncludeOnly(project, "", 1, "Community");
 
                 break;
 
             case 4:
+                RenderParameterIncludeOnly(project, "", 1, "Risks");
+
+                break;
+
+            case 5:
                 RenderParameterIncludeOnly(project, "", 1, "Release");
 
                 break;

@@ -11,10 +11,7 @@ public class Community
     public List<Player> Players;
 
     // HOW TO
-    public string HowToSpeakWithPlayers;
-
     public string GainPlayers;
-    public string HoldPlayers;
 
     // Understand what is it => Know details
     public List<string> Triggers;
@@ -26,6 +23,8 @@ public class Community
     // * TITLE
     // * TRAILERS
     // * DESCRIPTION
+
+    public string HoldPlayers;
 }
 
 public class MarketingActivity { }

@@ -43,7 +43,14 @@ public class Emotion
     public string Name;
 }
 
+public class DecisionDescription
+{
+    public string Name;
+    public string WhyPickingThis;
+    public string Consequences;
+}
+
 public class Decision
 {
-    public List<string> Choices;
+    public List<DecisionDescription> Choices;
 }
