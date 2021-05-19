@@ -54,5 +54,6 @@ public class DecisionDescription
 
 public class Decision
 {
+    // DecisionDescription
     public List<DecisionDescription> Choices;
 }

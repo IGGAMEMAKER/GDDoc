@@ -80,7 +80,7 @@ public partial class GDDoc
         var value = GetField(parameter, name);
 
         if (!IsString(info.FieldType))
-            Label($"<b>{name}</b> ({GetPrettyFieldType(info.FieldType)})", depth);
+            Label($"<b>{name}</b>", depth); // ({GetPrettyFieldType(info.FieldType)})
 
         counter++;
 
@@ -100,7 +100,9 @@ public partial class GDDoc
 
         foreach (var item in enumerable)
         {
-            RenderParameter(item, item.ToString(), depth + 1);
+            var propertyName = IsString(item.GetType()) ? "" : item.ToString();
+
+            RenderParameter(item, propertyName, depth + 1);
             Space(1);
         }
 
@@ -132,7 +134,7 @@ public partial class GDDoc
     static bool IsList(object type) => type.ToString().Contains("System.Collections.Generic.List");
     static bool IsDictionary(object type) => type.ToString().Contains("System.Collections.Generic.Dictionary");
 
-    static bool IsComplexType<T>(T obj) => !(IsString(obj.GetType()));
+    static bool IsComplexType<T>(T obj) => !IsString(obj.GetType());
 
     public static object GetField(object src, string propName)
     {

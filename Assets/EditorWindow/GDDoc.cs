@@ -51,7 +51,7 @@ public partial class GDDoc : EditorWindow
 
                 Badge("Who will play your game", 1);
                 RenderParameterIncludeOnly(project.Community.Players, "", 1, "Name");
-                RenderParameter(project.Community.Triggers);
+                RenderParameterIncludeOnly(project.Community, "", 1, "Triggers");
                 Space();
 
                 break;

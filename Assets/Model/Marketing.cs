@@ -10,8 +10,8 @@ public class Community
 {
     public List<Player> Players;
 
-    // HOW TO
-    public string GainPlayers;
+    public List<string> HowToGainPlayers;
+    public List<string> HowToHoldPlayers;
 
     // Understand what is it => Know details
     public List<string> Triggers;
@@ -23,11 +23,11 @@ public class Community
     // * TITLE
     // * TRAILERS
     // * DESCRIPTION
-
-    public string HoldPlayers;
 }
 
-public class MarketingActivity { }
+public class MarketingActivity
+{
+}
 
 public class Channel
 {

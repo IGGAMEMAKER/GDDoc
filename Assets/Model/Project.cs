@@ -21,13 +21,17 @@ public class Idea
     public string DescriptionParagraph; // 1 Paragraph, Calm description
     public string DescriptionStore; // Big description
 
-    public List<string> Actions;
-    public List<string> Goals;
-    public List<string> Challenge; // tough, but achievable
     public List<string> Roles;
-    public List<string> Playstyles;
 
-    public List<Decision> Decisions;
+    public List<string> Goals;
+    public List<string> Obstacles;
+    public List<string> Challenge; // tough, but achievable. Challenge = Goals - Obstacles
+
+    public List<string> Playstyles;
+    public List<string> Decisions;
+
+    public List<string> Actions;
+
     public string Atmosphere; // Art, Theme, Words
 }
 
