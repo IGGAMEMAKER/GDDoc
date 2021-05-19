@@ -48,6 +48,8 @@ public class DecisionDescription
     public string Name;
     public string WhyPickingThis;
     public string Consequences;
+
+    public int Importance;
 }
 
 public class Decision

@@ -29,7 +29,7 @@ public partial class GDDoc : EditorWindow
 
         GUILayout.BeginHorizontal();
 
-        var titles = new string[] { "Macro", "Success", "Gameplay", "Community Building", "Risks", "Iterations", "All" };
+        var titles = new string[] { "Macro", "Success", "Gameplay", "Community", "Risks", "Iterations", "All" };
         Tier = GUILayout.SelectionGrid(Tier, titles, titles.Length);
 
         GUILayout.EndHorizontal();
