@@ -15,12 +15,19 @@ public partial class GDDoc
         GUILayout.Label($"{name} ({value.GetType()}) \n{jsonString}");
     }
 
+    string GetIndentation(int indent = 1)
+    {
+        indent = 1;
+
+        return new string(' ', indent * 4);
+    }
+
     void Label(string label, int indent = 0)
     {
         var boldText = new GUIStyle();
         boldText.richText = true;
 
-        var indentation = new string(' ', indent * 4);
+        var indentation = GetIndentation(indent); 
 
         GUILayout.Label(indentation + label, boldText);
     }
@@ -31,7 +38,7 @@ public partial class GDDoc
         boldText.richText = true;
         boldText.fontSize = 42;
 
-        var indentation = new string(' ', indent * 4);
+        var indentation = GetIndentation(indent);
 
         GUILayout.Label($"<b>{indentation + label}</b>", boldText);
     }
@@ -42,9 +49,10 @@ public partial class GDDoc
         boldText.richText = true;
         boldText.fontSize = 24;
 
-        var indentation = new string(' ', indent * 4);
+        var indentation = GetIndentation(indent);
 
         GUILayout.Label($"<b>{indentation + label}</b>", boldText);
+        Space(5);
     }
 
     void Space(int space = 15)
@@ -57,7 +65,7 @@ public partial class GDDoc
         var boldText = GUI.skin.textField;
         //boldText.richText = true;
 
-        var indentation = new string(' ', depth * 4);
+        var indentation = GetIndentation(depth);
 
         //Label(label, depth);
         return EditorGUILayout.TextField($"{indentation + label}", str, boldText);

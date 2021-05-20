@@ -58,6 +58,8 @@ public partial class GDDoc
 
         bool includeAll = exclude == null && include == null;
 
+        //Debug.Log("Exclude: " + string.Join(",", exclude));
+
         // complex type
         var fields = parameterType.GetFields();
         for (int i = 0; i < fields.Length; i++)
@@ -66,14 +68,11 @@ public partial class GDDoc
 
             var name = info.Name.ToString();
 
-            if (exclude != null)
-                Debug.Log("Check excluding: " + name);
-
             bool forceInclude = include != null && include.Contains(name);
             bool forceExclude = exclude != null && exclude.Contains(name);
 
-            //if (forceExclude)
-            //    continue;
+            //if (exclude != null)
+            //    Debug.Log("Check excluding: " + name + " " + forceExclude);
 
             if (includeAll || (forceInclude && !forceExclude))
                 RenderProperty(parameter, info, depth + 1);

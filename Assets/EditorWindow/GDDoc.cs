@@ -10,6 +10,8 @@ using UnityEngine;
 
 public partial class GDDoc : EditorWindow
 {
+    private const int MarketingTab = 44;
+
     public Dictionary<string, bool> Foldouts = new Dictionary<string, bool>();
     public Vector2 scrollView = Vector2.zero;
 
@@ -29,7 +31,7 @@ public partial class GDDoc : EditorWindow
 
         GUILayout.BeginHorizontal();
 
-        var titles = new string[] { "MACRO", "Success", "Gameplay", "Community", "Marketing", "Risks", "Iterations", "ALL" };
+        var titles = new string[] { "MACRO", "Gameplay", "Community", "Risks", "Iterations", "ALL" };
         var prevTier = Tier;
         Tier = GUILayout.SelectionGrid(Tier, titles, titles.Length);
 
@@ -37,7 +39,11 @@ public partial class GDDoc : EditorWindow
 
         Space(25);
 
-        var title = titles[Tier].ToUpper();
+        var title = Tier < titles.Count() ? titles[Tier].ToUpper() : "";
+
+        if (Tier == MarketingTab)
+            title = "Marketing";
+
         BigLabel(title);
 
         switch (Tier)
@@ -56,36 +62,43 @@ public partial class GDDoc : EditorWindow
                 RenderParameterIncludeOnly(project.Community, "", 1, "Triggers");
                 Space();
 
-                break;
-
-            case 1:
-                //RenderParameter(project.WhyThisWillWork);
+                Badge("Why your game will become successful", 1);
                 RenderParameterIncludeOnly(project, "", 1, "WhyThisWillWork");
 
+                Space();
+
                 break;
 
-            case 2:
+            //case 1:
+            //    //RenderParameterIncludeOnly(project, "", 1, "WhyThisWillWork");
+            //    //RenderParameter(project.WhyThisWillWork);
+
+            //    break;
+
+            case 1:
                 RenderParameterIncludeOnly(project, "", 1, "Idea");
 
                 break;
 
-            case 3:
-                RenderParameterExcludeOnly(project.Community, "", 1, "MarketingMaterials");
+            case 2:
+                if (GUILayout.Button("Marketing materials"))
+                    Tier = MarketingTab;
+                RenderParameterIncludeOnly(project.Community, "", 1, "Players", "HowToGainPlayers", "HowToHoldPlayers", "Triggers");
 
                 break;
 
-            case 4:
+            case MarketingTab:
                 RenderParameterIncludeOnly(project.Community, "", 1, "MarketingMaterials");
                 RenderParameterIncludeOnly(project.Release, "", 1, "Channels");
 
                 break;
 
-            case 5:
+            case 3:
                 RenderParameterIncludeOnly(project, "", 1, "Risks");
 
                 break;
 
-            case 6:
+            case 4:
                 RenderParameterIncludeOnly(project, "", 1, "Release");
 
                 break;

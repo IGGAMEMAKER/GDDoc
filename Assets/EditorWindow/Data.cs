@@ -12,13 +12,36 @@ public partial class GDDoc : EditorWindow
         {
             Players = new List<Player>
             {
+                new Player { Name = "People who want to run software company", Description = "People who want to run software company. People, who are (somewhat) into startups, technologies, business" },
+                new Player { Name = "GENERAL", Description = "People who want to run software company. People, who are (somewhat) into startups, technologies, business" },
                 new Player { Name = "Gamedevs", Description = "" },
                 new Player { Name = "Programmers", Description = "" },
             },
             Triggers = new List<string>(), // can take from idea or make random clickbaits
 
-            HowToGainPlayers = new List<string> { "Serious game about business", "[Working on] Upcoming features", "I don't know, what to do, help me choose", "Hard decisions" },
-            HowToHoldPlayers = new List<string> { "Polls", "Upcoming features", "Playing beta versions", "(Mods)" },
+            HowToGainPlayers = new List<string>
+            {
+                "I am making Serious game about business",
+                "I released Serious game about business",
+                "[Working on] Upcoming features",
+                "I don't know, what to do, help me choose",
+                "Hard decisions"
+            },
+            HowToHoldPlayers = new List<string>
+            {
+                "Polls",
+                "Upcoming features",
+                "Playing beta versions",
+                "(Mods)"
+            },
+
+            MarketingMaterials = new List<MarketingMaterial>
+            {
+                new MarketingMaterial { Name = "Steam Store Page", Details = "Screenshots, 1 Sentence, Full description" },
+                new MarketingMaterial { Name = "Screenshots", Details = "" },
+                new MarketingMaterial { Name = "Full description", Details = "" },
+                new MarketingMaterial { Name = "Trailer" },
+            }
         };
 
         var idea = new Idea
