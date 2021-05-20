@@ -56,7 +56,7 @@ public partial class GDDoc : EditorWindow
 
         var fun = new List<string> { "Acquiring companies", "Parlays", "Bankrupting competitors" };
 
-        var emotions = new Emotion { Name = "Feel like you Manage a software company" };
+        var emotions = "Feel like you Manage a software company";
 
         var risks = new List<Risk>
         {

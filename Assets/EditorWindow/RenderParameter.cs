@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 
 // https://stackoverflow.com/questions/55407676/how-can-i-draw-a-list-and-all-its-items-in-inspector-editor-script
 
@@ -31,7 +32,7 @@ public partial class GDDoc
 
         if (depth == 1 && IsComplexType(parameter))
         {
-            Label($"<b>{GetPrettyFieldType(parameter.GetType())}</b>", depth);
+            //Label($"<b>{GetPrettyFieldType(parameter.GetType())}</b>", depth);
         }
 
         // string
@@ -44,14 +45,14 @@ public partial class GDDoc
         // list
         if (IsList(parameter))
         {
-            RenderList(parameter, depth);
+            RenderList(parameter, depth + 1);
             return;
         }
 
         // dictionary
         if (IsDictionary(parameter))
         {
-            Label("Dictionary", depth);
+            Label("Dictionary", depth + 1);
             return;
         }
 
@@ -64,11 +65,18 @@ public partial class GDDoc
             var info = fields[i];
 
             var name = info.Name.ToString();
+
+            if (exclude != null)
+                Debug.Log("Check excluding: " + name);
+
             bool forceInclude = include != null && include.Contains(name);
             bool forceExclude = exclude != null && exclude.Contains(name);
 
-            if (includeAll || forceInclude && !forceExclude)
-                RenderProperty(parameter, info, depth);
+            //if (forceExclude)
+            //    continue;
+
+            if (includeAll || (forceInclude && !forceExclude))
+                RenderProperty(parameter, info, depth + 1);
         }
 
         Space(10);
