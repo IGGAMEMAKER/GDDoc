@@ -29,7 +29,7 @@ public partial class GDDoc : EditorWindow
 
         GUILayout.BeginHorizontal();
 
-        var titles = new string[] { "Macro", "Success", "Gameplay", "Community", "Risks", "Iterations", "All" };
+        var titles = new string[] { "Macro", "Success", "Gameplay", "Community", "Marketing", "Risks", "Iterations", "All" };
         Tier = GUILayout.SelectionGrid(Tier, titles, titles.Length);
 
         GUILayout.EndHorizontal();
@@ -47,22 +47,24 @@ public partial class GDDoc : EditorWindow
                 Space();
 
                 Badge("What is cool about your game");
-                RenderParameterIncludeOnly(project, "", 1, "WhatsFun", "WhatFeelingsDoYouCreate");
+                RenderParameterIncludeOnly(project, "", 1, "WhatsFun", "WhatFeelingDoYouCreate");
 
                 Badge("Who will play your game", 1);
-                RenderParameterIncludeOnly(project.Community.Players, "", 1, "Name");
+                RenderParameter(project.Community.Players.Select(p => p.Name).ToList(), "", 1);
+                //RenderParameterIncludeOnly(project.Community.Players, "", 1, "Name");
                 RenderParameterIncludeOnly(project.Community, "", 1, "Triggers");
                 Space();
 
                 break;
 
             case 1:
-                RenderParameter(project.WhyThisWillWork);
+                //RenderParameter(project.WhyThisWillWork);
+                RenderParameterIncludeOnly(project, "", 1, "WhyThisWillWork");
 
                 break;
 
             case 2:
-                RenderParameter(project.Idea);
+                RenderParameterIncludeOnly(project, "", 1, "Idea");
 
                 break;
 
@@ -72,11 +74,17 @@ public partial class GDDoc : EditorWindow
                 break;
 
             case 4:
-                RenderParameterIncludeOnly(project, "", 1, "Risks");
+                RenderParameterIncludeOnly(project.Community, "", 1, "MarketingMaterials");
+                RenderParameterIncludeOnly(project.Release, "", 1, "Channels");
 
                 break;
 
             case 5:
+                RenderParameterIncludeOnly(project, "", 1, "Risks");
+
+                break;
+
+            case 6:
                 RenderParameterIncludeOnly(project, "", 1, "Release");
 
                 break;

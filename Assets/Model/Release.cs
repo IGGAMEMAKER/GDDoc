@@ -30,5 +30,5 @@ public class Iteration
 
     // KPIs?
     public int Duration;
-    public string Goal; // Risk reducing? Promise execution
+    public string Goal; // Risk reducing? Promise execution? Holding audience?
 }

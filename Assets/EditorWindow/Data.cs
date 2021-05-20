@@ -16,7 +16,6 @@ public partial class GDDoc : EditorWindow
                 new Player { Name = "Programmers", Description = "" },
             },
             Triggers = new List<string>(), // can take from idea or make random clickbaits
-            UniqueTriggers = new List<string>(),
 
             HowToGainPlayers = new List<string> { "Serious game about business", "[Working on] Upcoming features", "I don't know, what to do, help me choose", "Hard decisions" },
             HowToHoldPlayers = new List<string> { "Polls", "Upcoming features", "Playing beta versions", "(Mods)" },
@@ -25,9 +24,8 @@ public partial class GDDoc : EditorWindow
         var idea = new Idea
         {
             Atmosphere = "Atmosphere",
-            Description = "Corporation simulator",
+            Description = "Business simulator",
             DescriptionParagraph = "I'm making a game, where you need to create a software corporation",
-            DescriptionStore = "",
 
             Actions = new List<string>(),
 
@@ -51,17 +49,14 @@ public partial class GDDoc : EditorWindow
         {
             WhyPeopleCantIgnoreIt = "",
             WhyPeopleWillBuyIt = "Cause they followed from the start, were engaged (played betas, gave feedback, spoke with dev)",
-            WhyPeopleWillRecommendIt = "Make insane schemes, lawsuit everyone, ",
+            WhyPeopleWillRecommendIt = "Make insane schemes, lawsuit everyone",
 
             WhyThisWillWork = "Cause people, who dreamed about running software companies, can experience that without need to risk anything"
         };
 
         var fun = new List<string> { "Acquiring companies", "Parlays", "Bankrupting competitors" };
 
-        var emotions = new List<Emotion>
-        {
-            new Emotion { Name = "Feel like you Manage a software company" }
-        };
+        var emotions = new Emotion { Name = "Feel like you Manage a software company" };
 
         var risks = new List<Risk>
         {
@@ -81,7 +76,7 @@ public partial class GDDoc : EditorWindow
         Project project = new Project
         {
             WhatsFun = fun,
-            WhatFeelingsDoYouCreate = emotions,
+            WhatFeelingDoYouCreate = emotions,
 
             Community = community,
             Idea = idea,

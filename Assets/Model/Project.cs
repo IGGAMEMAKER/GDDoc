@@ -3,7 +3,7 @@
 public class Project // project = product + players + time + money
 {
     // Urge
-    public List<Emotion> WhatFeelingsDoYouCreate;
+    public Emotion WhatFeelingDoYouCreate;
     public List<string> WhatsFun;
 
     public Idea Idea;
@@ -19,7 +19,6 @@ public class Idea
 {
     public string Description; // 1 Sentence
     public string DescriptionParagraph; // 1 Paragraph, Calm description
-    public string DescriptionStore; // Big description
 
     public List<string> Roles;
 

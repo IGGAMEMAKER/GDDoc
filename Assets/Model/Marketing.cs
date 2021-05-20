@@ -6,6 +6,12 @@ public class Player
     public string Description;
 }
 
+public class MarketingMaterial
+{
+    public string Name;
+    public string Details;
+}
+
 public class Community
 {
     public List<Player> Players;
@@ -14,9 +20,9 @@ public class Community
     public List<string> HowToHoldPlayers;
 
     // Understand what is it => Know details
-    public List<string> Triggers;
-    public List<string> UniqueTriggers; // What will only be associated with you
+    public List<string> Triggers; // *** What will only be associated with you
 
+    public List<MarketingMaterial> MarketingMaterials;
     // MARKETING MATERIALS:
     // * SCREENSHOTS
     // * NAME
