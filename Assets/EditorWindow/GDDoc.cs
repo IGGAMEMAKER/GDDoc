@@ -30,6 +30,7 @@ public partial class GDDoc : EditorWindow
         GUILayout.BeginHorizontal();
 
         var titles = new string[] { "Macro", "Success", "Gameplay", "Community", "Marketing", "Risks", "Iterations", "All" };
+        var prevTier = Tier;
         Tier = GUILayout.SelectionGrid(Tier, titles, titles.Length);
 
         GUILayout.EndHorizontal();
@@ -96,7 +97,14 @@ public partial class GDDoc : EditorWindow
         }
 
         Space(25);
+
+        GUI.SetNextControlName("Unfocus");
         InputProperty("", "Unfocus");
+
+        if (prevTier != Tier)
+        {
+            EditorGUI.FocusTextInControl("Unfocus");
+        }
 
         EditorGUILayout.EndScrollView();
     }
