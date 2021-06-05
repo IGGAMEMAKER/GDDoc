@@ -23,7 +23,6 @@ public class Idea
     public List<string> Roles;
 
     public List<string> Goals;
-    public List<string> Obstacles;
     public List<string> Challenge; // tough, but achievable. Challenge = Goals - Obstacles
 
     public List<string> Playstyles;

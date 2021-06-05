@@ -47,8 +47,8 @@ public partial class GDDoc : EditorWindow
         var idea = new Idea
         {
             Atmosphere = "Atmosphere",
-            Description = "Business simulator",
-            DescriptionParagraph = "I'm making a game, where you need to create a software corporation",
+            Description = "Hardcore business simulator. I'm making a game, where you start as solo developer and you need to create a software corporation.",
+            DescriptionParagraph = "Start as solo developer and create biggest corporation of all times! Create apps, websites and games, Buy companies & form partnerships, Survive economical crysises, Attract investors and don't let them kick you out",
 
             Actions = new List<string>(),
 
@@ -62,7 +62,7 @@ public partial class GDDoc : EditorWindow
                 "Be Independent (+you make own decisions, micromanagement) / Rely on investments (+fast growth, more action on macro level)"
             },
 
-            Challenge = new List<string>(),
+            Challenge = new List<string> { "Protect from aggressive acquisitions", "Defend urself against lawsuits" },
             Goals = new List<string> { "Create corporation", "Become TOP1 company" },
 
             Roles = new List<string> { "Product Owner", "Businessman", "Investor" }
